@@ -67,7 +67,7 @@ def checkWin():
 		if pWC == 4:
 			print("You have won!", '\n')
 			gameActive = False
-
+			gameEnd()
 		elif pWC < 4:
 			gameActive = True
 		if cWC == 4:
