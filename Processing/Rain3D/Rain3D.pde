@@ -18,6 +18,7 @@ void setup() {
   
   cam = new PeasyCam(this, 500);
   cam.setResetOnDoubleClick(true);
+  cam.setYawRotationMode();
   
   for (int i = 0; i < drop.length; i++) {
     drop[i] = new Droplet();
