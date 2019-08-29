@@ -1,4 +1,4 @@
-# 3D Rain Visualisation
+# 2D Rain Visualisation
 <img src="">
 
 This is ...
