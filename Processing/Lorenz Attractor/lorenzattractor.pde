@@ -15,7 +15,7 @@ void setup() {
   size(600, 600, P3D);
   colorMode(HSB);
   cam = new PeasyCam(this, 500);
-  cam.setYawRotationMode();
+  //cam.setYawRotationMode();
   cam.setResetOnDoubleClick(true);
 }
 
