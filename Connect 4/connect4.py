@@ -1,14 +1,15 @@
-## ---------------------------------- ##
-##          Connect 4 Game            ##
-##     Made by David Sangojinmi       ##
-## ---------------------------------- ##
+## --------------------------------------- ##
+##             Connect 4 Game              ##
+##        Made by David Sangojinmi         ##
+## --------------------------------------- ##
 
-## Install necessary components
+## ------Install necessary components----- ##
 import random
 import pprint
 import sys
+## --------------------------------------- ##
 
-## Create board
+## --------------Create board------------- ##
 row1 = [0,0,0,0,0,0,0]
 row2 = [0,0,0,0,0,0,0]
 row3 = [0,0,0,0,0,0,0]
@@ -16,19 +17,26 @@ row4 = [0,0,0,0,0,0,0]
 row5 = [0,0,0,0,0,0,0]
 row6 = [0,0,0,0,0,0,0]
 board = [row1, row2, row3, row4, row5, row6]
+## --------------------------------------- ##
 
-##----------- Game mechanics ---------##
+## -------------Game mechanics------------ ##
 def showBoard():
 	pprint.pprint(board)
+
 def instructions():
-	## Create instructions and print
-	None
+	print('''
+		You are yellow 'Y' and the computer is red 'R'.
+		Place your piece in one of the columns and then
+		the computer will place its own piece. To win,
+		you must get four of your own pieces in a row
+		either vertically, horizontally or diagonally.
+	''')
 
 def gameStart():
-	global play
+	global pReady
 	global gameActive
 	print("Welcome to Connect 4!", '\n', "Prove your skill and beat the computer.", '\n', "Good luck!")
-	play = input("Play(Y/N)? ")
+	pReady = input("Play(Y/N)? ")
 	print('\n')
 	if play == 'Y':
 		showBoard()
@@ -37,11 +45,6 @@ def gameStart():
 		gameActive = True
 	elif play == "N":
 		sys.exit()
-
-def play():
-	gameStart()
-	gamePlay()
-	gameEnd()
 
 def gameEnd():
 	print("Thanks for playing, hope you had fun!", '\n')
@@ -145,3 +148,4 @@ def play():
 	gameEnd()
 
 play()
+## --------------------------------------- ##
