@@ -11,6 +11,9 @@ void setup() {
   colorMode(HSB);
   cam = new PeasyCam(this, 700);
   cam.setResetOnDoubleClick(true);
+  //cam.setYawRotationMode();   // like spinning a globe
+  //cam.setPitchRotationMode(); // like a somersault
+  //cam.setRollRotationMode();  // like a radio knob
   for (int i = 0; i < pt.length; i++) {
     pt[i] = new Point();
   }
@@ -33,8 +36,7 @@ void draw() {
   } else {
     rV = 0.001;
   }
-  
   //cam.rotateX(rV);
-  cam.rotateY(rV);
+  //cam.rotateY(rV);
   //cam.rotateZ(rV);
 }
