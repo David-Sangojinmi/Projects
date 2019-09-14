@@ -4,6 +4,7 @@ class Droplet {
   float z = random(-148, 148);
   float dropLength = random(4, 13);
   float dropSpeed = random(3, 7);  
+  boolean matrix = false;
   
   void show() {
     strokeWeight(random(1, 4));
@@ -12,7 +13,12 @@ class Droplet {
   }
   
   void rain() {
-    y += dropSpeed;
+    if (matrix == true) {
+      y += 0;
+      rotateY = 0.01;
+    } else {
+      y += dropSpeed;
+    }
     if (y >= 125) {
       x = random(-148, 148);
       y = -160;
@@ -20,10 +26,5 @@ class Droplet {
       dropLength = random(4, 13);
       dropSpeed = random(3, 7);
     }
-  }
-  
-  void matrix() {
-    y += 0;
-    rotateY = 0.01;
   }
 }

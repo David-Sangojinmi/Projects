@@ -29,25 +29,22 @@ void draw() {
   background(0);
   
   if ((keyPressed) && (key == 'a')) {
-    sandbox.show();
-    sandbox.showAxis();
+    sandbox.axis = true;
   } else {
-    sandbox.show();
-    sandbox.hideAxis();
+    sandbox.axis = false;
   }
+  sandbox.show();
+  sandbox.showAxis();
   
   translate(0, -125, 0);
   for (int i = 0; i < drop.length; i++) {
     drop[i].show();
-  }
-  if ((keyPressed) && (key == 'p')) {
-    for (int i = 0; i < drop.length; i++) {
-      drop[i].matrix();
+    if ((keyPressed) && (key == 'p')) {
+      drop[i].matrix = true;
+    } else {
+      drop[i].matrix = false;
     }
-  } else {
-    for (int i = 0; i < drop.length; i++) {
-      drop[i].rain();
-    }
+    drop[i].rain();
   }
   
   cam.rotateY(rotateY);

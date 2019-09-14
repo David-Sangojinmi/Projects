@@ -1,4 +1,5 @@
 class Sandbox {
+  boolean axis = false;
   float bxWgt = 3;
   float axWgt = 3;
   float trWgt = 0.5;
@@ -30,11 +31,11 @@ class Sandbox {
     box(300, 50, 300);
   }
   
-  void hideAxis() {
-    axWgt = 0;
-  }
-  
   void showAxis() {
-    axWgt = 3;
+    if (axis == true ) {
+      axWgt = 3;
+    } else {
+      axWgt = 0;
+    }
   }
 }
