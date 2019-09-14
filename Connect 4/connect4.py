@@ -3,13 +3,11 @@
 ##        Made by David Sangojinmi         ##
 ## --------------------------------------- ##
 
-## ------Install necessary components----- ##
+## -------------Setup section------------- ##
 import random
 import pprint
 import sys
-## --------------------------------------- ##
 
-## --------------Create board------------- ##
 row1 = [0,0,0,0,0,0,0]
 row2 = [0,0,0,0,0,0,0]
 row3 = [0,0,0,0,0,0,0]
@@ -24,105 +22,129 @@ def showBoard():
 	pprint.pprint(board)
 
 def instructions():
-	print('''
-		You are yellow 'Y' and the computer is red 'R'.
-		Place your piece in one of the columns and then
-		the computer will place its own piece. To win,
-		you must get four of your own pieces in a row
-		either vertically, horizontally or diagonally.
-	''')
+	global gameActive
+	print("You are player 1 and the computer is player 2.", '\n',
+	"The board size is 7 by 6. Place your piece in", '\n',
+	"one of the 7 columns and then the computer will", '\n',
+	"place its own piece. To win, you must get four", '\n',
+	"of your own pieces in a row either vertically,", '\n',
+	"horizontally or diagonally.", '\n',
+	"Prove your skill and beat the computer, Good luck!")
+	print('\n')
+	gameActive = True
 
 def gameStart():
-	global pReady
-	global gameActive
-	print("Welcome to Connect 4!", '\n', "Prove your skill and beat the computer.", '\n', "Good luck!")
-	pReady = input("Play(Y/N)? ")
-	print('\n')
-	if play == 'Y':
-		showBoard()
-		instructions()
+	global playerWinCounter
+	global computerWinCounter
+	print("Welcome to Connect 4!", '\n')
+	playerReady = input("Play(Y/N)? ")
+	if playerReady == 'Y':
 		print('\n')
-		gameActive = True
-	elif play == "N":
+		instructions()
+		showBoard()
+		print('\n')
+		playerWinCounter = 0
+		computerWinCounter = 0
+	elif playerReady == "N":
 		sys.exit()
 
-def gameEnd():
-	print("Thanks for playing, hope you had fun!", '\n')
-	playAgain = input("Play again(Y/N)? ")
-	if playAgain == 'Y':
-		play()
-	elif playAgain == 'N':
-		sys.exit()
-
-def checkWin():
-	pWC = 0
-	cWC = 0
-	## Horizontally
-	for i in range(5, 0, -1):
-		for j in range(0, 7):
-			if board[i][j] == 1:
-				pWC += 1
-			elif board[i][j] == 2:
-				cWC += 1
-			elif board[i][j] == 0:
-				pWC = 0
-				cWC = 0
-		if pWC == 4:
-			print("You have won!", '\n')
-			gameActive = False
-			gameEnd()
-		elif pWC < 4:
-			gameActive = True
-		if cWC == 4:
-			print("The computer has won!", '\n')
-			gameActive = False
-			gameEnd()
-		elif cWC < 4:
-			gameActive = True
-	## Vertically
-
-	## Diagonally
-
-
-def placePiece(pieceCol, playerPiece):
+def placePiece(pieceColumn, playerPiece):
 	pos = 5
-	if board[pos][pieceCol] == 0:
-		board[pos][pieceCol] = playerPiece
-	elif board[pos][pieceCol] != 0:
+	if board[pos][pieceColumn] == 0:
+		board[pos][pieceColumn] = playerPiece
+	elif board[pos][pieceColumn] != 0:
 		pos -= 1
-		if board[pos][pieceCol] == 0:
-			board[pos][pieceCol] = playerPiece
-		elif board[pos][pieceCol] != 0:
+		if board[pos][pieceColumn] == 0:
+			board[pos][pieceColumn] = playerPiece
+		elif board[pos][pieceColumn] != 0:
 			pos -= 1
-			if board[pos][pieceCol] == 0:
-				board[pos][pieceCol] = playerPiece
-			elif board[pos][pieceCol] != 0:
+			if board[pos][pieceColumn] == 0:
+				board[pos][pieceColumn] = playerPiece
+			elif board[pos][pieceColumn] != 0:
 				pos -= 1
-				if board[pos][pieceCol] == 0:
-					board[pos][pieceCol] = playerPiece
-				elif board[pos][pieceCol] != 0:
+				if board[pos][pieceColumn] == 0:
+					board[pos][pieceColumn] = playerPiece
+				elif board[pos][pieceColumn] != 0:
 					pos -= 1
-					if board[pos][pieceCol] == 0:
-						board[pos][pieceCol] = playerPiece
-					elif board[pos][pieceCol] != 0:
+					if board[pos][pieceColumn] == 0:
+						board[pos][pieceColumn] = playerPiece
+					elif board[pos][pieceColumn] != 0:
 						pos -= 1
-						if board[pos][pieceCol] == 0:
-							board[pos][pieceCol] = playerPiece
+						if board[pos][pieceColumn] == 0:
+							board[pos][pieceColumn] = playerPiece
 
 def playerMove():
-	pCol = int(input("Column? ")) - 1
+	playerPiece = 1
+	playerColumn = int(input("Column to place piece? ")) - 1
 	print('\n')
-	placePiece(pCol, 1)
+	placePiece(playerColumn, playerPiece)
 	showBoard()
 	print('\n')
 
 def compMove():
-	cCol = (random.randint(1, 3)) - 1
-	print("Computer picks column: ", cCol + 1, ".")
+	computerPiece = 2
+	computerColumn = (random.randint(1, 7)) - 1
+	print("Computer places piece in column ", computerColumn + 1, ".")
 	print('\n')
-	placePiece(cCol, 2)
+	placePiece(computerColumn, computerPiece)
 	showBoard()
 	print('\n')
+
+def checkWin():
+	global gameActive
+	playerWinCounter = 0
+	computerWinCounter = 0
+	## Horizontally
+	for i in range(5, 0, -1):
+		for j in range(0, 6):
+			if board[i][j] == 1:
+				playerWinCounter += 1
+			elif board[i][j] == 0:
+				playerWinCounter = 0
+			if playerWinCounter == 4:
+				print("You have won!", '\n')
+				gameActive = False
+				gameEnd()
+			else:
+				gameActive = True
+			if board[i][j] == 2:
+				computerWinCounter += 1
+			elif board[i][j] == 0:
+				computerWinCounter = 0
+			if computerWinCounter == 4:
+				print("The computer has won!", '\n')
+				gameActive = False
+				gameEnd()
+			else:
+				gameActive = True
+	## Vertically
+	for j in range(0, 6):
+		for i in range(5, 0, -1):
+			if board[i][j] == 1:
+				playerWinCounter += 1
+			else:
+				playerWinCounter = 0
+			if playerWinCounter == 4:
+				print("You have won!", '\n')
+				gameActive = False
+				gameEnd()
+			else:
+				gameActive = True
+			if board[i][j] == 2:
+				computerWinCounter += 1
+			else:
+				computerWinCounter = 0
+			if computerWinCounter == 4:
+				print("The computer has won!", '\n')
+				gameActive = False
+				gameEnd()
+			else:
+				gameActive = True
+		if gameActive == False:
+			playerWinCounter = 0
+			computerWinCounter = 0
+	## Diagonally
+
 
 def gamePlay():
 	global gameActive
@@ -132,20 +154,25 @@ def gamePlay():
 		compMove()
 		checkWin()
 
-## Second time defining gameEnd()
 def gameEnd():
-	print("Thanks for playing, hope you had fun!", '\n')
-	playAgain = input("Play again(Y/N)? ")
-	if playAgain == 'Y':
-		play()
-	elif playAgain == 'N':
-		sys.exit()
+	global gameActive
+	if gameActive == False:
+		print("Thanks for playing, hope you had fun!", '\n')
+		playAgain = input("Play again(Y/N)? ")
+		if playAgain == 'Y':
+			for i in range(5, 0, -1):
+				for j in range(0, 6):
+					board[i][j] = 0
+			print('\n')
+			instructions()
+			gamePlay()
+		elif playAgain == 'N':
+			sys.exit()
 
-## Second time defining play()
-def play():
+def PlayGame():
 	gameStart()
 	gamePlay()
 	gameEnd()
 
-play()
+PlayGame()
 ## --------------------------------------- ##
