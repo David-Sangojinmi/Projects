@@ -144,6 +144,7 @@ def checkWin():
 			playerWinCounter = 0
 			computerWinCounter = 0
 	## Diagonally
+	for i in range(2, 0):
 
 
 def gamePlay():
