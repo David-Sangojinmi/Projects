@@ -144,7 +144,8 @@ def checkWin():
 			playerWinCounter = 0
 			computerWinCounter = 0
 	## Diagonally
-	##for i in range(2, 0):
+	# Method 1: Everytime a piece is placed check the whole board for diagonal combinations of four
+	# Method 2: When a piece is played, check its diagonals for possible combinations
 
 def gamePlay():
 	global gameActive
