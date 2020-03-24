@@ -8,9 +8,15 @@ let ball = {
     x: 450,
     y: 200,
     diameter: 20,
-    xspeed: 2,
-    yspeed: 3
+    xspeed: 4,
+    yspeed: 6
 };
+
+let game = {
+    round: 1,
+    score: 0,
+    lifes: 3
+}
 
 function setup() {
     createCanvas(900, 390);
@@ -28,6 +34,8 @@ function draw() {
     // Movements
     paddleMove();
     ballMove();
+    // Game info display
+    gameInfo();
 }
 
 function paddleMove() {
@@ -45,7 +53,7 @@ function paddleMove() {
 function ballMove() {
     // Horizontal movement
     ball.x -= ball.xspeed;
-    if ((ball.x-10) <= (paddleA.x+9)) {
+    if ((ball.x-10) < (paddleA.x+10) && ((ball.y+10 < paddleA.y+25) && (ball.y-10 > paddleA.y-25))) {
         ball.xspeed = ball.xspeed * -1;
     }
     if ((ball.x+10) >= 890) {
@@ -59,5 +67,19 @@ function ballMove() {
     if (ball.y + 10 >= 380) {
         ball.yspeed = ball.yspeed * -1;
     }
-    // Collision detection
+    // Resetting
+    if (ball.x+10 < paddleA.x-10) {
+        ball.x = 450;
+        ball.y = 200;
+        game.score += 1;
+    }
+}
+
+function gameInfo() {
+    textSize(20);
+    text('Score: ' + game.score, 420, 30);
+    fill(200);
+    //if (ball.x+10 < paddleA.x-10) {
+    //    game.score += 1;
+    //}
 }
