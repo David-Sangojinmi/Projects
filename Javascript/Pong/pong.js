@@ -1,41 +1,39 @@
 let paddleA = {
-  x: 50,
-  y: 200,
-  speed: 5
+    x: 50,
+    y: 200,
+    speed: 5
 };
 
-let paddleB = {
-  x: 50,
-  y: 450,
-  speed: 5
+let ball = {
+    x: 450,
+    y: 200,
+    diameter: 20,
+    speed: 7
 };
 
 function setup() {
-  createCanvas(500, 400);
-  rectMode(CENTER);
+    createCanvas(900, 400);
+    rectMode(CENTER);
+    ellipsdeMode(CENTER);
 }
 
 function draw() {
-  background(0);
+    background(0);
 
-  //Call the paddles
-  rect(paddleA.x, paddleA.y, 20, 50);
-  move();
+    // Paddle
+    rect(paddleA.x, paddleA.y, 20, 50);
+    // Ball
+    ellipse(ball.x, ball.y, ball.diameter);
+    paddleMove();
+    ballMove();
 }
 
-//function padA() {
-//let x = paddleA.x;
-//let y = paddleA.y;
-
-//rect(paddleA.x, paddleA.y, 20, 50);
-
-function move() {
-  if (keyIsPressed === true) {
-    if (keyCode === UP_ARROW) {
-      paddleA.y -= paddleA.speed;
+function paddleMove() {
+    if (keyIsPressed === true) {
+        if (keyCode === UP_ARROW) {
+            paddleA.y -= paddleA.speed;
+        }
     }
-  }
 }
-//}
 
-function padB() {}
+function ballMove() {}
