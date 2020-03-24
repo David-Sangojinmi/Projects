@@ -24,6 +24,7 @@ function draw() {
     rect(paddleA.x, paddleA.y, 20, 50);
     // Ball
     ellipse(ball.x, ball.y, ball.diameter);
+    // Movements
     paddleMove();
     ballMove();
 }
@@ -33,7 +34,13 @@ function paddleMove() {
         if (keyCode === UP_ARROW) {
             paddleA.y -= paddleA.speed;
         }
+        if (keyCode === DOWN_ARROW) {
+            paddleA.y += paddleA.speed;
+        }
     }
 }
 
-function ballMove() {}
+function ballMove() {
+
+
+}
