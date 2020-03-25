@@ -17,7 +17,8 @@ var col2 = {
 var brd = {
     x: 100,
     y: 100,
-    fallSpd: 2
+    fallSpd: 2,
+    points: 0
 }
 function setup() {
     createCanvas(900, 390);
@@ -31,11 +32,13 @@ function draw() {
 
     column();
     bird();
+    score();
 }
 
 function bird() {
     // Displaying the bird
     strokeWeight(1.5);
+    stroke(0);
     fill(255, 211, 36);
     ellipse(brd.x, brd.y, 40, 35);
 
@@ -44,8 +47,8 @@ function bird() {
         brd.y = 100;
     }
     if (keyIsPressed === true) {
-        if (key === SPACE) {
-            brd.y -= brd.fallSpd;
+        if (keyCode === UP_ARROW) {
+            brd.y -= 4*brd.fallSpd;
         }
     } else {
         brd.y += brd.fallSpd;
@@ -55,6 +58,7 @@ function bird() {
 
 function column() {
     strokeWeight(2);
+    stroke(0);
     fill(54, 209, 52);
 
     // Column height generation
@@ -80,4 +84,12 @@ function column() {
         rect(col1.x1, col1.y1, col1.x2, col1.y2);
         rect(col2.x1, col2.y1, col2.x2, col2.y2);
     }
+}
+
+function score() {
+    textAlign(CENTER, CENTER);
+    textSize(30);
+    fill(255);
+    stroke(255, 200);
+    text('Score: ' + brd.points, 450, 30);
 }
