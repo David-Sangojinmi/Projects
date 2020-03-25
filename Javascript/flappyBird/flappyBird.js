@@ -35,4 +35,14 @@ function draw() {
     // Columns moving along the screen
     col1.x1 -= col1.speed;
     col2.x1 -= col2.speed;
+
+    // Column respawning when it hits edge
+    if (keyIsPressed === true && key === 'r') {
+        col1.x1 = 850;
+        col1.x2 = 900;
+        col2.x1 = 850;
+        col2.x2 = 900;
+        rect(col1.x1, col1.y1, col1.x1 + 50, col1.y2);
+        rect(col2.x1, col2.y1, col2.x1 + 50, col2.y2);
+    }
 }
