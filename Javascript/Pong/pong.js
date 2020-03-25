@@ -36,6 +36,12 @@ function draw() {
     ballMove();
     // Game info display
     gameInfo();
+    // Resetting the game score
+    if (keyIsPressed === true) {
+        if (key === 'p') {
+            game.score = 0;
+        }
+    }
 }
 
 function paddleMove() {
