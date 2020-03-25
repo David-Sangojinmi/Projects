@@ -28,7 +28,7 @@ function draw() {
     background(0);
 
     // Paddle
-    rect(paddleA.x, paddleA.y, 20, 50);
+    rect(paddleA.x, paddleA.y, 20, 70);
     // Ball
     ellipse(ball.x, ball.y, ball.diameter);
     // Movements
@@ -53,7 +53,7 @@ function paddleMove() {
 function ballMove() {
     // Horizontal movement
     ball.x -= ball.xspeed;
-    if ((ball.x-10) < (paddleA.x+10) && ((ball.y+10 < paddleA.y+25) && (ball.y-10 > paddleA.y-25))) {
+    if ((ball.x-10) < (paddleA.x+10) && ((ball.y+10 < paddleA.y+35) && (ball.y-10 > paddleA.y-35))) {
         ball.xspeed = ball.xspeed * -1;
     }
     if ((ball.x+10) >= 890) {
@@ -78,8 +78,5 @@ function ballMove() {
 function gameInfo() {
     textSize(20);
     text('Score: ' + game.score, 420, 30);
-    fill(200);
-    //if (ball.x+10 < paddleA.x-10) {
-    //    game.score += 1;
-    //}
+    fill(255);
 }
