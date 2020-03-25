@@ -23,15 +23,20 @@ function setup() {
 
 function draw() {
     background(39, 201, 204);
+    
+    bird();
+    column();
+}
 
+function column() {
     // Column height generation
     col1.y2 = random(25, 285);
     col2.y1 = 390 - col1.y2 - 80;
-    
+
     // Column generation
-    rect(col1.x1, col1.y1, col1.x1+50, col1.y2);
-    rect(col2.x1, col2.y1, col2.x1+50, col2.y2);
-    
+    rect(col1.x1, col1.y1, col1.x1 + 50, col1.y2);
+    rect(col2.x1, col2.y1, col2.x1 + 50, col2.y2);
+
     // Columns moving along the screen
     col1.x1 -= col1.speed;
     col2.x1 -= col2.speed;
