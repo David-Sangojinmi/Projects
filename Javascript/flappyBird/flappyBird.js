@@ -37,7 +37,7 @@ function draw() {
     col2.x1 -= col2.speed;
 
     // Column respawning when it hits edge
-    if (keyIsPressed === true && key === 'r') {
+    if (col1.x1 <= -50 || col2.x1 <= -50) {
         col1.x1 = 850;
         col1.x2 = 900;
         col2.x1 = 850;
