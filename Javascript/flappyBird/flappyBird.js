@@ -21,23 +21,17 @@ var brd = {
     points: 0
 };
 
-let background;
-
-function preload() {
-    background = loadImage('bg.png');
-}
-
 function setup() {
     createCanvas(900, 390);
     rectMode(CORNERS);
     ellipseMode(CENTER);
-    //background(39, 201, 204);
+    //background('bg.jpg', 0, 0);
 }
 
 function draw() {
     background(39, 201, 204);
-    image(background, 0, 0, 900, 390);
 
+    // bg();                      Implement later
     column();
     bird();
     score();
@@ -55,14 +49,11 @@ function bird() {
         brd.points += 1;
         brd.y = 100;
     }
-    if (keyIsPressed === true) {
-        if (keyCode === UP_ARROW) {
-            brd.y -= 4*brd.fallSpd;
-        }
+    if (keyIsPressed === true && keyCode === UP_ARROW) {
+        brd.y -= 4 * brd.fallSpd;
     } else {
         brd.y += brd.fallSpd;
     }
-
 }
 
 function column() {
@@ -100,8 +91,8 @@ function score() {
     textSize(30);
     fill(255);
     stroke(255, 200);
-    text('Score: ' + brd.points, 450, 30);
-    if (keyIsPressed === true && key === 'r') {
+    text("Score: " + brd.points, 450, 30);
+    if (keyIsPressed === true && key === "r") {
         brd.points = 0;
     }
 }
