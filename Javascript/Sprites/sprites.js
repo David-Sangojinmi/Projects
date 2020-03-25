@@ -2,7 +2,7 @@ let ball = {
     x: 450,
     y: 200,
     diameter: 20,
-    numOf: 0,
+    numOf: 10,
     xspeed: 4,
     yspeed: 6
 };
@@ -15,8 +15,13 @@ function setup() {
 function draw() {
     background(0);
 
+    fill(255);
+    
     // Ball
-    ellipse(ball.x, ball.y, ball.diameter);
+    while (ball.numOf > 0) {
+        ellipse(ball.x, ball.y, ball.diameter);
+        ball.numOf--;
+    }
     // Movements
     ballMove();
     // Game info display
@@ -30,33 +35,11 @@ function draw() {
 }
 
 function ballMove() {
-    //---------- Arrays ----------//
+    //---------- Spawning ----------//
 
     //---------- Movement ---------//
     /// Horizontal movement
-    ball.x -= ball.xspeed;
-    if (
-        ball.x - 10 < paddleA.x + 10 &&
-        ball.y + 10 < paddleA.y + 35 &&
-        ball.y - 10 > paddleA.y - 35
-    ) {
-        ball.xspeed = ball.xspeed * -1;
-    }
-    if (ball.x + 10 >= 890) {
-        ball.xspeed = ball.xspeed * -1;
-    }
-    /// Vertical movement
-    ball.y -= ball.yspeed;
-    if (ball.y - 10 <= 10) {
-        ball.yspeed = ball.yspeed * -1;
-    }
-    if (ball.y + 10 >= 380) {
-        ball.yspeed = ball.yspeed * -1;
-    }
-    //------------ Resetting -----------//
-    if (ball.x + 10 < paddleA.x - 10) {
-        ball.x = 450;
-        ball.y = 200;
-        game.score += 1;
-    }
+    ball.x += ball.xspeed;
+    
+    
 }
