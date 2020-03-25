@@ -31,9 +31,18 @@ function draw() {
 }
 
 function spriteMove() {
+    //Keyboard controls
+    if (keyIsPressed === true && keyCode === RIGHT_ARROW) {
+        sprite.x += sprite.xspeed;
+    }
+    if (keyIsPressed === true && keyCode === LEFT_ARROW) {
+        sprite.x -= sprite.xspeed;
+    }
+    
+    // Edge detection
     if (sprite.y >= 274) {
         sprite.y += 0;
     } else {
-        sprite.y += 1;
+        sprite.y += sprite.yspeed;
     }
 }
