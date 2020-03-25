@@ -19,7 +19,14 @@ var brd = {
     y: 100,
     fallSpd: 2,
     points: 0
+};
+
+let background;
+
+function preload() {
+    background = loadImage('bg.png');
 }
+
 function setup() {
     createCanvas(900, 390);
     rectMode(CORNERS);
@@ -29,6 +36,7 @@ function setup() {
 
 function draw() {
     background(39, 201, 204);
+    image(background, 0, 0, 900, 390);
 
     column();
     bird();
@@ -44,6 +52,7 @@ function bird() {
 
     // Controlling the birds movements
     if (brd.y >= 390) {
+        brd.points += 1;
         brd.y = 100;
     }
     if (keyIsPressed === true) {
@@ -62,8 +71,8 @@ function column() {
     fill(54, 209, 52);
 
     // Column height generation
-    col1.y2 = random(25, 285);
-    col2.y1 = col1.y2 + 80;
+    col1.y2 = random(25, 265);
+    col2.y1 = col1.y2 + 100;
 
     // Column generation
     rect(col1.x1, col1.y1, col1.x2, col1.y2);
@@ -92,4 +101,7 @@ function score() {
     fill(255);
     stroke(255, 200);
     text('Score: ' + brd.points, 450, 30);
+    if (keyIsPressed === true && key === 'r') {
+        brd.points = 0;
+    }
 }
