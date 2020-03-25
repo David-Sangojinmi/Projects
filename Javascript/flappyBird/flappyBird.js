@@ -40,9 +40,15 @@ function bird() {
     ellipse(brd.x, brd.y, 40, 35);
 
     // Controlling the birds movements
-    brd.y += brd.fallSpd;
     if (brd.y >= 390) {
         brd.y = 100;
+    }
+    if (keyIsPressed === true) {
+        if (key === SPACE) {
+            brd.y -= brd.fallSpd;
+        }
+    } else {
+        brd.y += brd.fallSpd;
     }
 
 }
@@ -53,15 +59,17 @@ function column() {
 
     // Column height generation
     col1.y2 = random(25, 285);
-    col2.y1 = 390 - col1.y2 - 80;
+    col2.y1 = col1.y2 + 80;
 
     // Column generation
-    rect(col1.x1, col1.y1, col1.x1 + 50, col1.y2);
-    rect(col2.x1, col2.y1, col2.x1 + 50, col2.y2);
+    rect(col1.x1, col1.y1, col1.x2, col1.y2);
+    rect(col2.x1, col2.y1, col2.x2, col2.y2);
 
     // Columns moving along the screen
     col1.x1 -= col1.speed;
+    col1.x2 -= col1.speed;
     col2.x1 -= col2.speed;
+    col2.x2 -= col2.speed;
 
     // Column respawning when it hits edge
     if (col1.x1 <= -50 || col2.x1 <= -50) {
@@ -69,7 +77,7 @@ function column() {
         col1.x2 = 900;
         col2.x1 = 850;
         col2.x2 = 900;
-        rect(col1.x1, col1.y1, col1.x1 + 50, col1.y2);
-        rect(col2.x1, col2.y1, col2.x1 + 50, col2.y2);
+        rect(col1.x1, col1.y1, col1.x2, col1.y2);
+        rect(col2.x1, col2.y1, col2.x2, col2.y2);
     }
 }
