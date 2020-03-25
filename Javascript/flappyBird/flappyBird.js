@@ -10,7 +10,7 @@ var col2 = {
     x1: 850,
     y1: 180,
     x2: 900,
-    y2: 390,
+    y2: 450,
     speed: 3
 };
 
@@ -18,11 +18,12 @@ var brd = {
     x: 100,
     y: 100,
     fallSpd: 2,
-    points: 0
+    points: 0,
+    deaths: 0
 };
 
 function setup() {
-    createCanvas(900, 390);
+    createCanvas(900, 450);
     rectMode(CORNERS);
     ellipseMode(CENTER);
     //background('bg.jpg', 0, 0);
@@ -45,14 +46,19 @@ function bird() {
     ellipse(brd.x, brd.y, 40, 35);
 
     // Controlling the birds movements
-    if (brd.y >= 390) {
-        brd.points += 1;
+    if (brd.y >= 450) {
+        brd.deaths += 1;
         brd.y = 100;
     }
     if (keyIsPressed === true && keyCode === UP_ARROW) {
         brd.y -= 4 * brd.fallSpd;
     } else {
         brd.y += brd.fallSpd;
+    }
+
+    // Scoring
+    if ((brd.x === col1.x2) && (brd.y - 25 > col1.y2 && brd.y + 25 < col2.y1)) {
+        brd.points += 1;             // FIX: no longer gives points
     }
 }
 
@@ -62,7 +68,7 @@ function column() {
     fill(54, 209, 52);
 
     // Column height generation
-    col1.y2 = random(25, 265);
+    col1.y2 = 250;
     col2.y1 = col1.y2 + 100;
 
     // Column generation
@@ -91,8 +97,10 @@ function score() {
     textSize(30);
     fill(255);
     stroke(255, 200);
-    text("Score: " + brd.points, 450, 30);
+    text("Score: " + brd.points, 250, 30);
+    text("Deaths: " + brd.deaths, 650, 30);
     if (keyIsPressed === true && key === "r") {
         brd.points = 0;
+        brd.deaths = 0;
     }
 }
