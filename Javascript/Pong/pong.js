@@ -64,12 +64,14 @@ function draw() {
 
 function paddleAMove() {
     // Paddle movement
-    if (keyIsPressed === true) {
-        if (key === 'w') {
-            paddleA.y -= paddleA.speed;
-        }
-        if (key === 's') {
-            paddleA.y += paddleA.speed;
+    if (paddleA.y - 45 >= 0 && paddleA.y + 45 <= 390) {
+        if (keyIsPressed === true) {
+            if (key === "w") {
+                paddleA.y -= paddleA.speed;
+            }
+            if (key === "s") {
+                paddleA.y += paddleA.speed;
+            }
         }
     }
 }
