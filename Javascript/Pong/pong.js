@@ -1,20 +1,20 @@
 let paddleA = {
     x: 50,
     y: 200,
-    speed: 5
+    speed: 4
 };
 
 let paddleB = {
     x: 830,
     y: 200,
-    speed: 5,
+    speed: 4
 };
 
 let ball = {
     x: 450,
     y: 200,
     diameter: 20,
-    xspeed: 4,
+    xspeed: 3,
     yspeed: 6
 };
 
@@ -22,8 +22,8 @@ let game = {
     round: 1,
     aScore: 0,
     bScore: 0,
-    aLives: 3,
-    bLives: 3
+    //aLives: 3,
+    //bLives: 3
 }
 
 function setup() {
@@ -45,8 +45,7 @@ function draw() {
     ellipse(ball.x, ball.y, ball.diameter);
 
     // Movements
-    paddleAMove();
-    paddleBMove();
+    paddleMove();
     ballMove();
     checkCollision();
 
@@ -62,22 +61,17 @@ function draw() {
     }
 }
 
-function paddleAMove() {
-    // Paddle movement
-    if (paddleA.y - 45 >= 0 && paddleA.y + 45 <= 390) {
-        if (keyIsPressed === true) {
-            if (key === "w") {
-                paddleA.y -= paddleA.speed;
-            }
-            if (key === "s") {
-                paddleA.y += paddleA.speed;
-            }
+function paddleMove() {
+    // Paddle A movement
+    if (keyIsPressed === true) {
+        if (key === "w") {
+            paddleA.y -= paddleA.speed;
+        }
+        if (key === "s") {
+            paddleA.y += paddleA.speed;
         }
     }
-}
-
-function paddleBMove() {
-    // Paddle movement
+    // Paddle B movement
     if (keyIsPressed === true) {
         if (keyCode === UP_ARROW) {
             paddleB.y -= paddleB.speed;
@@ -85,6 +79,19 @@ function paddleBMove() {
         if (keyCode === DOWN_ARROW) {
             paddleB.y += paddleB.speed;
         }
+    }
+    // Edge detection
+    if (paddleA.y - 39 <= 0) {
+        paddleA.y += 5;
+    }
+    if (paddleA.y + 39 >= 390) {
+        paddleA.y -= 5;
+    }
+    if (paddleB.y - 39 <= 0) {
+        paddleB.y += 5;
+    }
+    if (paddleB.y + 39 >= 390) {
+        paddleB.y -= 5;
     }
 }
 
@@ -118,15 +125,46 @@ function ballMove() {
 
 function checkCollision() {
     // Paddle A
-
-
+    if (ball.x - 10 <= paddleA.x + 10 &&
+        ball.y - 10 >= paddleA.y - 45 &&
+        ball.y + 10 <= paddleA.y + 45) {
+        ball.xspeed = ball.xspeed * random(-0.75, -1.25);
+        ball.yspeed = ball.yspeed * random(0.75, 1.25);
+    }
     // Paddle B
-
+    if (ball.x + 10 >= paddleB.x - 10 &&
+        ball.y - 10 >= paddleB.y - 45 &&
+        ball.y + 10 <= paddleB.y + 45) {
+        ball.xspeed = ball.xspeed * random(-0.75, -1.25);
+        ball.yspeed = ball.yspeed * random(0.75, 1.25);
+    }
 }
 
 function gameInfo() {
     textSize(20);
-    text('Player 1 Score: ' + game.aScore, 200, 30);
-    text("Player 2 Score: " + game.bScore, 540, 30);
+    text('Player 1 Score: ' + game.bScore, 200, 30);
+    text("Player 2 Score: " + game.aScore, 540, 30);
     fill(255);
+}
+
+function keyPressed() {
+    if (keyCode == UP)
+        player1_up = true;
+    else if (keyCode == DOWN)
+        player1_up = true;
+    if (key == 'w')
+        player2_up = true;
+    else if (key == 's')
+        player2_down = true;
+}
+
+function keyReleasd() {
+    if (keyCode == UP)
+        player1_up = false;
+    else if (keyCode == DOWN)
+        player1_up = false;
+    if (key == 'w')
+        player2_up = false;
+    else if (key == 's')
+        player2_down = false;
 }
