@@ -1,6 +1,6 @@
-import Paddle from "paddle";
-import InputHandler from "input";
-import Ball from "ball";
+import Paddle from "paddle.js";
+import InputHandler from "input.js";
+import Ball from "ball.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight) {
