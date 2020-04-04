@@ -57,6 +57,10 @@ function draw() {
         if (key === 'p') {
             game.aScore = 0;
             game.bScore = 0;
+            ball.x = 450;
+            ball.y = 200;
+            ball.xspeed = 3;
+            ball.yspeed = 6;
         }
     }
 }
@@ -125,18 +129,18 @@ function ballMove() {
 
 function checkCollision() {
     // Paddle A
-    if (ball.x - 10 <= paddleA.x + 10 &&
-        ball.y - 10 >= paddleA.y - 45 &&
-        ball.y + 10 <= paddleA.y + 45) {
+    if (ball.x - 10 < paddleA.x + 10 &&
+        ball.y - 10 > paddleA.y - 45 &&
+        ball.y + 10 < paddleA.y + 45) {
         ball.xspeed = ball.xspeed * random(-0.75, -1.25);
         ball.yspeed = ball.yspeed * random(0.75, 1.25);
     }
     // Paddle B
-    if (ball.x + 10 >= paddleB.x - 10 &&
-        ball.y - 10 >= paddleB.y - 45 &&
-        ball.y + 10 <= paddleB.y + 45) {
+    if (ball.x + 10 > paddleB.x - 10 &&
+        ball.y - 10 > paddleB.y - 45 &&
+        ball.y + 10 < paddleB.y + 45) {
         ball.xspeed = ball.xspeed * random(-0.75, -1.25);
-        ball.yspeed = ball.yspeed * random(0.75, 1.25);
+        ball.yspeed = ball.yspeed * random(0.8, 1.2);
     }
 }
 
