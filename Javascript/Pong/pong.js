@@ -38,16 +38,21 @@ function draw() {
     line(450, 0, 450, 390);
 
     // Paddle
-    rect(paddleA.x, paddleA.y, 20, 70);
-    rect(paddleB.x, paddleB.y, 20, 70);
+    rect(paddleA.x, paddleA.y, 20, 80);
+    rect(paddleB.x, paddleB.y, 20, 80);
+
     // Ball
     ellipse(ball.x, ball.y, ball.diameter);
+
     // Movements
     paddleAMove();
     paddleBMove();
     ballMove();
+    checkCollision();
+
     // Game info display
     gameInfo();
+
     // Resetting the game score
     if (keyIsPressed === true) {
         if (key === 'p') {
@@ -84,18 +89,12 @@ function paddleBMove() {
 function ballMove() {
     // Horizontal movement
     ball.x -= ball.xspeed;
-    if ((ball.x-10) < (paddleA.x+10) && ((ball.y+10 < paddleA.y+35) && (ball.y-10 > paddleA.y-35))) {
-        ball.xspeed = ball.xspeed * -1;
-    }
-    if ((ball.x+10) >= 890) {
-        ball.xspeed = ball.xspeed * -1;
-    }
     // Vertical movement
     ball.y -= ball.yspeed;
-    if (ball.y - 10 <= 10) {
+    if (ball.y - 10 <= 0) {
         ball.yspeed = ball.yspeed * -1;
     }
-    if (ball.y + 10 >= 380) {
+    if (ball.y + 10 >= 390) {
         ball.yspeed = ball.yspeed * -1;
     }
     // Resetting and scoring
@@ -113,12 +112,19 @@ function ballMove() {
         ball.yspeed = ball.yspeed * -1;
         game.bScore += 1;
     }
-    
+}
+
+function checkCollision() {
+    // Paddle A
+
+
+    // Paddle B
+
 }
 
 function gameInfo() {
     textSize(20);
-    text('Player 1 Score: ' + game.aScore, 220, 30);
+    text('Player 1 Score: ' + game.aScore, 200, 30);
     text("Player 2 Score: " + game.bScore, 540, 30);
     fill(255);
 }
