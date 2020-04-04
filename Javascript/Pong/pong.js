@@ -112,14 +112,14 @@ function ballMove() {
         ball.y = 200;
         ball.xspeed = ball.xspeed * -1;
         ball.yspeed = ball.yspeed * -1;
-        game.aScore += 1;
+        game.bScore += 1;
     }
     if (ball.x - 10 > paddleB.x + 10) {
         ball.x = 450;
         ball.y = 200;
         ball.xspeed = ball.xspeed * -1;
         ball.yspeed = ball.yspeed * -1;
-        game.bScore += 1;
+        game.aScore += 1;
     }
 }
 
@@ -142,11 +142,15 @@ function checkCollision() {
 
 function gameInfo() {
     textSize(20);
-    text('Player 1 Score: ' + game.bScore, 200, 30);
-    text("Player 2 Score: " + game.aScore, 540, 30);
+    text('Player 1 Score: ' + game.aScore, 200, 30);
+    text("Player 2 Score: " + game.bScore, 540, 30);
     fill(255);
 }
 
+// Adjust and implement the code below so both paddles
+// can move at the same time. Rather than one stopping
+// the other from moving.
+/* 
 function keyPressed() {
     if (keyCode == UP)
         player1_up = true;
@@ -168,3 +172,4 @@ function keyReleasd() {
     else if (key == 's')
         player2_down = false;
 }
+*/
