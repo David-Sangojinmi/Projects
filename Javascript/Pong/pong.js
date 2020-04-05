@@ -59,12 +59,12 @@ function draw() {
     // Resetting the game score
     if (keyIsPressed === true) {
         if (key === 'p') {
-            reset();
+            gameReset();
         }
     }
 }
 
-function reset() {
+function gameReset() {
     game.aScore = 0;
     game.bScore = 0;
     ball.x = 450;
