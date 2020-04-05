@@ -58,18 +58,18 @@ function gameStart() {
     // Screen for the start of the game
     textAlign(CENTER);
     textStyle(BOLD);
-    textSize(40);
-    fill(200, 200, 200);
+    textSize(60);
+    fill(250);
     textFont("monospace");
     text("BRICK BREAKER", 300, 170);
 
     // Instructions
-    textAlign(CENTER, TOP);
+    textAlign(CENTER);
     textStyle(NORMAL);
-    textSize(15);
-    fill(235, 235, 235);
+    textSize(20);
+    fill(235);
     text(
-        "Welcome! Use the left and right arrow keys to move the paddle left and right. You start at level 1 and you have three lives. To get points, use your paddle to hit the ball and break the bricks. You have three lives before its game over. Press ENTER to start. Good luck!", 300, 200
+        "Welcome! Use the left and right arrow keys to move the paddle left and right. You start at level 1 and you have three lives. To get points, use your paddle to hit the ball and break the bricks. You have three lives before its game over. Press ENTER to start. Good luck!", 300, 450, 380, 400
     );
     /* Welcome! Use the left and right arrow keys to move the paddle left and right. You start at level 1 and you have three lives. To get points, use your paddle to hit the ball and break the bricks. You have three lives before its game over. Press ENTER to start. Good luck!
      */
