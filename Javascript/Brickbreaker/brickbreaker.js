@@ -4,7 +4,7 @@ let gameFinish = false;
 
 let paddle = {
     xpos: 300,
-    ypos: 650,
+    ypos: 550,
     speed: 5,
 };
 
@@ -21,9 +21,9 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    for (let i = 0; i < 2; i++) {
-        let x = 200 + 200 * i;
-        bricks[i] = new Bricks(Bricks.x, 300, Bricks.w, Bricks.h);
+    for (let i = 0; i < 5; i++) {
+        //let x = 200 + 200 * i;
+        bricks[i] = new Brick();
     }
 }
 
@@ -34,19 +34,19 @@ function draw() {
     gameLoop();
 }
 
-class Bricks {
+class Brick {
     constructor(x, y, w, h) {
         this.x = x;
-        this.y = y;
-        this.w = 40;
-        this.h = 60;
+        this.y = 200;
+        this.w = 80;
+        this.h = 30;
     }
 
     show() {
         stroke(145, 0, 0);
-        strokeWeight(2);
+        strokeWeight(4);
         fill(189, 9, 9);
-        rect();
+        rect(this.x, this.y, this.w, this.h);
     }
 
     destroy() {
@@ -83,13 +83,23 @@ function gameStart() {
 
 function gamePlay() {
     // Screen for when the game is active
-
-    // Show the level, points and lives
+    // Show the game stats: level, points and lives
+    stroke(255);
+    line(0, 600, 600, 600);
+    noStroke();
+    textAlign(CENTER);
+    textStyle(NORMAL);
+    textSize(20);
+    fill(250);
+    text("Level: " + game.level, 150, 650);
+    text("Points: " + game.score, 300, 650);
+    text("Lives: " + game.lives, 450, 650);
 
     // Draw the paddle and bricks
-    rect(paddle.xpos, paddle.ypos, 80, 20, 5, 5, 10, 10);
-    for (let i = 0; i < 2; i++) {
-        bricks[i];
+    rect(paddle.xpos, paddle.ypos, 90, 20, 5, 5, 10, 10);
+    for (let i = 0; i < bricks.length; i++) {
+        bricks[i].x = 80 + 110*i;
+        bricks[i].show();
     }
 
     // Paddle moving
