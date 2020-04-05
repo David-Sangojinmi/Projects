@@ -5,7 +5,7 @@ let paddleA = {
 };
 
 let paddleB = {
-    x: 830,
+    x: 850,
     y: 200,
     speed: 4
 };
@@ -14,7 +14,7 @@ let ball = {
     x: 450,
     y: 200,
     diameter: 20,
-    xspeed: 3,
+    xspeed: 2,
     yspeed: 6
 };
 
@@ -111,14 +111,14 @@ function ballMove() {
         ball.yspeed = ball.yspeed * -1;
     }
     // Resetting and scoring
-    if (ball.x + 10 < paddleA.x - 10) {
+    if (ball.x - 10 < 0) {
         ball.x = 450;
         ball.y = 200;
         ball.xspeed = ball.xspeed * -1;
         ball.yspeed = ball.yspeed * -1;
         game.bScore += 1;
     }
-    if (ball.x - 10 > paddleB.x + 10) {
+    if (ball.x + 10 > 900) {
         ball.x = 450;
         ball.y = 200;
         ball.xspeed = ball.xspeed * -1;
@@ -132,15 +132,15 @@ function checkCollision() {
     if (ball.x - 10 < paddleA.x + 10 &&
         ball.y - 10 > paddleA.y - 45 &&
         ball.y + 10 < paddleA.y + 45) {
-        ball.xspeed = ball.xspeed * random(-0.75, -1.25);
-        ball.yspeed = ball.yspeed * random(0.75, 1.25);
+        ball.xspeed = ball.xspeed * random(-0.95, -1.05);
+        ball.yspeed = ball.yspeed * random(0.95, 1.05);
     }
     // Paddle B
     if (ball.x + 10 > paddleB.x - 10 &&
         ball.y - 10 > paddleB.y - 45 &&
         ball.y + 10 < paddleB.y + 45) {
-        ball.xspeed = ball.xspeed * random(-0.75, -1.25);
-        ball.yspeed = ball.yspeed * random(0.8, 1.2);
+        ball.xspeed = ball.xspeed * random(-0.95, -1.05);
+        ball.yspeed = ball.yspeed * random(0.95, 1.05);
     }
 }
 
