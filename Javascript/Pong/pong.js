@@ -1,13 +1,13 @@
 let paddleA = {
     x: 50,
-    y: 200,
-    speed: 4
+    y: 195,
+    speed: 5
 };
 
 let paddleB = {
     x: 850,
-    y: 200,
-    speed: 4
+    y: 195,
+    speed: 5
 };
 
 let ball = {
@@ -61,6 +61,10 @@ function draw() {
             ball.y = 200;
             ball.xspeed = 3;
             ball.yspeed = 6;
+            paddleA.x = 50;
+            paddleA.y = 195;
+            paddleB.x = 850;
+            paddleB.y = 195;
         }
     }
 }
@@ -129,16 +133,20 @@ function ballMove() {
 
 function checkCollision() {
     // Paddle A
-    if (ball.x - 10 < paddleA.x + 10 &&
-        ball.y - 10 > paddleA.y - 45 &&
-        ball.y + 10 < paddleA.y + 45) {
+    if ((ball.x - 10 < paddleA.x + 10 &&
+        ball.x - 10 > paddleA.x) &&
+        ball.y - 10 > paddleA.y - 40 &&
+        ball.y + 10 < paddleA.y + 40) {
+        ball.x += 10;
         ball.xspeed = ball.xspeed * random(-0.95, -1.05);
         ball.yspeed = ball.yspeed * random(0.95, 1.05);
     }
     // Paddle B
-    if (ball.x + 10 > paddleB.x - 10 &&
-        ball.y - 10 > paddleB.y - 45 &&
-        ball.y + 10 < paddleB.y + 45) {
+    if ((ball.x + 10 > paddleB.x - 10 &&
+        ball.x + 10 < paddleB.x) &&
+        ball.y - 10 > paddleB.y - 40 &&
+        ball.y + 10 < paddleB.y + 40) {
+        ball.x -= 10; 
         ball.xspeed = ball.xspeed * random(-0.95, -1.05);
         ball.yspeed = ball.yspeed * random(0.95, 1.05);
     }
