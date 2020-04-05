@@ -1,13 +1,17 @@
 let paddleA = {
     x: 50,
     y: 195,
+    up: false,
+    down: false,
     speed: 5
 };
 
 let paddleB = {
     x: 850,
     y: 195,
-    speed: 5
+    up: false,
+    down: false,
+    speed: 5,
 };
 
 let ball = {
@@ -55,21 +59,48 @@ function draw() {
     // Resetting the game score
     if (keyIsPressed === true) {
         if (key === 'p') {
-            game.aScore = 0;
-            game.bScore = 0;
-            ball.x = 450;
-            ball.y = 200;
-            ball.xspeed = 3;
-            ball.yspeed = 6;
-            paddleA.x = 50;
-            paddleA.y = 195;
-            paddleB.x = 850;
-            paddleB.y = 195;
+            reset();
         }
     }
 }
 
+function reset() {
+    game.aScore = 0;
+    game.bScore = 0;
+    ball.x = 450;
+    ball.y = 200;
+    ball.xspeed = 3;
+    ball.yspeed = 6;
+    paddleA.x = 50;
+    paddleA.y = 195;
+    paddleB.x = 850;
+    paddleB.y = 195;
+}
+
 function paddleMove() {
+    /* Code to make paddles move simultaneously  **Still need to update**
+    // Paddle A movement
+    if (paddleA.up === true) {
+        paddleA.y -= paddleA.speed;
+    } else if (paddleA.up === false) {
+        paddleA.y -= 0;
+    }
+    if (paddleA.down === true) {
+        paddleA.y += paddleA.speed;
+    } else if (paddleA.down === false) {
+        paddleA.y += 0;
+    }
+    // Paddle B movement
+    if (paddleB.up === true) {
+        paddleB.y -= paddleB.speed;
+    } else if (paddleB.up === false) {
+        paddleB.y -= 0;
+    }
+    if (paddleB.down === true) {
+        paddleB.y += paddleB.speed;
+    } else if (paddleB.down === false) {
+        paddleB.y += 0;
+    } */
     // Paddle A movement
     if (keyIsPressed === true) {
         if (key === "w") {
@@ -137,7 +168,7 @@ function checkCollision() {
         ball.x - 10 > paddleA.x) &&
         ball.y - 10 > paddleA.y - 40 &&
         ball.y + 10 < paddleA.y + 40) {
-        ball.x += 10;
+        ball.x += 5;
         ball.xspeed = ball.xspeed * random(-0.95, -1.05);
         ball.yspeed = ball.yspeed * random(0.95, 1.05);
     }
@@ -146,42 +177,40 @@ function checkCollision() {
         ball.x + 10 < paddleB.x) &&
         ball.y - 10 > paddleB.y - 40 &&
         ball.y + 10 < paddleB.y + 40) {
-        ball.x -= 10; 
+        ball.x -= 5; 
         ball.xspeed = ball.xspeed * random(-0.95, -1.05);
         ball.yspeed = ball.yspeed * random(0.95, 1.05);
     }
 }
 
-function gameInfo() {
-    textSize(20);
-    text('Player 1 Score: ' + game.aScore, 200, 30);
-    text("Player 2 Score: " + game.bScore, 540, 30);
-    fill(255);
-}
-
-// Adjust and implement the code below so both paddles
-// can move at the same time. Rather than one stopping
-// the other from moving.
-/* 
+/* Code for making keys move simultaneously  **Still need to change**
 function keyPressed() {
-    if (keyCode == UP)
-        player1_up = true;
-    else if (keyCode == DOWN)
-        player1_up = true;
-    if (key == 'w')
-        player2_up = true;
-    else if (key == 's')
-        player2_down = true;
+    if (keyCode === UP_ARROW) {
+        paddleB.up = true;
+    } else if (keyCode === DOWN_ARROW) {
+        paddleB.down = true;
+    } else if (key === "w") {
+        paddleA.up = true;
+    } else if (key === "s") {
+        paddleA.down = true;
+    }
 }
 
 function keyReleasd() {
-    if (keyCode == UP)
-        player1_up = false;
-    else if (keyCode == DOWN)
-        player1_up = false;
-    if (key == 'w')
-        player2_up = false;
-    else if (key == 's')
-        player2_down = false;
+    if (keyCode === UP_ARROW) {
+        paddleB.up = false;
+    } else if (keyCode === DOWN_ARROW) {
+        paddleB.down = false;
+    } else if (key === "w") {
+        paddleA.up = false;
+    } else if (key === "s") {
+        paddleA.down = false;
+    }
+} */
+
+function gameInfo() {
+    textSize(20);
+    text("Player 1 Score: " + game.aScore, 200, 30);
+    text("Player 2 Score: " + game.bScore, 540, 30);
+    fill(255);
 }
-*/
