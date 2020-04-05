@@ -54,6 +54,10 @@ class Brick {
     }
 }
 
+class Ball {
+    // Ball code here: collision etc
+}
+
 function gameStart() {
     // Screen for the start of the game
     textAlign(CENTER);
