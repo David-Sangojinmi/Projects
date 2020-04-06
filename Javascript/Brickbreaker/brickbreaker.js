@@ -103,6 +103,9 @@ class Ball {
             this.y = 530;
             game.score -= 5;
             game.lives -= 1;
+            ballActive = false;
+            paddle.xpos = 300;
+            paddle.ypos = 550;
         }
 
         if ((this.y + 10 > paddle.ypos - 10 && this.y < paddle.ypos - 10) 
@@ -216,6 +219,7 @@ function gamePlay() {
             bricks[2].destroy();
         }
     } */
+
     if (game.lives <= 0) {
         gameBegin = false;
         gameActive = false;
