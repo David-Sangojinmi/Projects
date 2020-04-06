@@ -23,7 +23,7 @@ let bricks = [];
 let game = {
     level: 1,
     score: 0,
-    lives: 3,
+    lives: 5,
 };
 
 function setup() {
@@ -61,8 +61,11 @@ class Brick {
         rect(this.x, this.y, this.w, this.h);
     }
 
-    destroy() {
+    collide() {
         noFill();
+        noStroke();
+        this.x = 300;
+        this.y = 800;
         game.score += 5;
     }
 }
@@ -87,6 +90,7 @@ class Ball {
     }
 
     move() {
+        // General movement and edge collision
         this.y -= this.yspd;
         this.x += this.xspd;
         if (this.x + this.d / 2 >= 599) {
@@ -100,19 +104,27 @@ class Ball {
         }
         if (this.y + this.d / 2 >= 600) {
             this.x = 300;
-            this.y = 530;
+            this.y = 529;
             game.score -= 5;
             game.lives -= 1;
             ballActive = false;
             paddle.xpos = 300;
             paddle.ypos = 550;
         }
-
-        if ((this.y + 10 > paddle.ypos - 10 && this.y < paddle.ypos - 10) 
+        // Paddle collision
+        if ((this.y + 10 > paddle.ypos - 9 && this.y < paddle.ypos - 10) 
         && this.x - 10 >= paddle.xpos - 45
         && this.x + 10 <= paddle.xpos + 45) {
             // Move the ball up a bit
             this.yspd = this.yspd * -1;
+        }
+        // Brick collision
+        for (let i = 0; i < bricks.length; i++) {
+            if (ball.x > bricks[i].x - 40 && ball.x < bricks[i].x + 40 && ball.y > bricks[i].y - 15 && ball.y < bricks[i].y + 15) {
+                bricks[i].collide();
+                this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
+            }
         }
     }
 }
@@ -137,7 +149,7 @@ function gameStart() {
     textSize(20);
     fill(235);
     text(
-        "Welcome! Use the left and right arrow keys to move the paddle left and right. Press the space bar to release the ball. You start at level 1 and you have three lives. Get points by breaking bricks with the ball and losing a life loses you points. Click the button below or press 'g' to start. Good luck!",
+        "Welcome! Use the left and right arrow keys to move the paddle left and right. Press the space bar to release the ball. You start at level 1 and you have five lives. Get points by breaking bricks with the ball and losing a life loses you points. Click the button below or press 'g' to start. Good luck!",
         300,
         400,
         380,
