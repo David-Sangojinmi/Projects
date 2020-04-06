@@ -105,7 +105,10 @@ class Ball {
             game.lives -= 1;
         }
 
-        if (1 === 2) {
+        if ((this.y + 10 > paddle.ypos - 10 && this.y < paddle.ypos - 10) 
+        && this.x - 10 >= paddle.xpos - 45
+        && this.x + 10 <= paddle.xpos + 45) {
+            // Move the ball up a bit
             this.yspd = this.yspd * -1;
         }
     }
