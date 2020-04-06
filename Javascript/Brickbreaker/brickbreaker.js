@@ -122,7 +122,8 @@ class Ball {
             this.x + 10 <= paddle.xpos + 45
         ) {
             this.y -= 5;
-            this.yspd = this.yspd * -1;
+            this.xspd = this.xspd * random(-0.95, -1.05);
+            this.yspd = this.yspd * random(-0.95, -1.05);
         }
         // Brick collision
         for (let i = 0; i < 5; i++) {
