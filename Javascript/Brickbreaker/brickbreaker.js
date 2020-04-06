@@ -65,10 +65,12 @@ class Brick {
 }
 
 class Ball {
-    constructor(x, y, d) {
+    constructor(x, y, d, xspd, yspd) {
         this.x = 300;
         this.y = 530;
         this.d = 20;
+        this.xspd = 1;
+        this.yspd = 2;
     }
 
     show() {
@@ -82,7 +84,17 @@ class Ball {
     }
 
     move() {
-        this.y -= 1;
+        this.y -= this.yspd;
+        this.x += this.xspd;
+        if (this.x - this.d / 2 <= 599) {
+            this.xspd = this.xspd * -1;
+        }
+        if (this.y - this.d/2 <= 0) {
+            this.yspd = this.yspd * -1;
+        }
+        if (this.x - this.d/2 <= 0) {
+            this.xspd = this.xspd * -1;
+        }
         if (this.y + this.d/2 >= 600) {
             this.x = 300;
             this.y = 530;
@@ -163,6 +175,7 @@ function gamePlay() {
         bricks[i].show();
     }
     ball.show();
+    ball.move();
 
     // Paddle moving
     if (keyIsPressed === true) {
