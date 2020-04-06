@@ -75,8 +75,8 @@ class Ball {
         this.x = 300;
         this.y = 530;
         this.d = 20;
-        this.xspd = 2;
-        this.yspd = 2;
+        this.xspd = 5;
+        this.yspd = 3;
     }
 
     show() {
@@ -115,14 +115,14 @@ class Ball {
         if ((this.y + 10 > paddle.ypos - 9 && this.y < paddle.ypos - 10) 
         && this.x - 10 >= paddle.xpos - 45
         && this.x + 10 <= paddle.xpos + 45) {
-            // Move the ball up a bit
+            this.y -= 5;
             this.yspd = this.yspd * -1;
         }
         // Brick collision
         for (let i = 0; i < bricks.length; i++) {
             if (ball.x > bricks[i].x - 40 && ball.x < bricks[i].x + 40 && ball.y > bricks[i].y - 15 && ball.y < bricks[i].y + 15) {
                 bricks[i].collide();
-                this.xspd = this.xspd * -1;
+                //this.xspd = this.xspd * -1;
                 this.yspd = this.yspd * -1;
             }
         }
