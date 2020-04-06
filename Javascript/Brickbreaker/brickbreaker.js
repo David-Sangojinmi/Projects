@@ -18,7 +18,11 @@ let paddle = {
     bottom: paddle.ypos + paddle.height / 2,
 }; */
 
-let bricks = [];
+let bricks = {
+    layer1: [],
+    layer2: [],
+    layer3: [],
+};
 
 let game = {
     level: 1,
@@ -32,13 +36,10 @@ function setup() {
     ellipseMode(CENTER);
 
     for (let i = 0; i < 5; i++) {
-        bricks[i] = [];
-        for (let j = 0; bricks[i][j] < 2; j++) {
-            bricks[i][j] = new Brick();
-        }
+        bricks.layer1[i] = new Brick();
+        bricks.layer2[i] = new Brick();
+        bricks.layer3[i] = new Brick();
     }
-
-    //let playerName = createInput("Enter player name: ");
 }
 
 function draw() {
@@ -125,18 +126,35 @@ class Ball {
         }
         // Brick collision
         for (let i = 0; i < 5; i++) {
-            bricks[i] = [];
-            for (let j = 0; bricks[i][j] < 2; j++) {
-                if (
-                    ball.x > bricks[i][j].x - 40 &&
-                    ball.x < bricks[i][j].x + 40 &&
-                    ball.y > bricks[i][j].y - 15 &&
-                    ball.y < bricks[i][j].y + 15
-                ) {
-                    bricks[i][j].collide();
-                    //this.xspd = this.xspd * -1;
-                    this.yspd = this.yspd * -1;
-                }
+            if (
+                ball.x > bricks.layer1[i].x - 40 &&
+                ball.x < bricks.layer1[i].x + 40 &&
+                ball.y > bricks.layer1[i].y - 15 &&
+                ball.y < bricks.layer1[i].y + 15
+            ) {
+                bricks.layer1[i].collide();
+                //this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
+            }
+            if (
+                ball.x > bricks.layer2[i].x - 40 &&
+                ball.x < bricks.layer2[i].x + 40 &&
+                ball.y > bricks.layer2[i].y - 15 &&
+                ball.y < bricks.layer2[i].y + 15
+            ) {
+                bricks.layer2[i].collide();
+                //this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
+            }
+            if (
+                ball.x > bricks.layer3[i].x - 40 &&
+                ball.x < bricks.layer3[i].x + 40 &&
+                ball.y > bricks.layer3[i].y - 15 &&
+                ball.y < bricks.layer3[i].y + 15
+            ) {
+                bricks.layer3[i].collide();
+                //this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
             }
         }
     }
@@ -208,12 +226,21 @@ function gamePlay() {
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
     for (let i = 0; i < 5; i++) {
-        bricks[i] = [];
-        for (let j = 0; bricks[i][j] < 2; j++) {
-            bricks[i][j].x = 80 + 110 * i;
-            bricks[i][j].y = 200 + 100 * j;
-            bricks[i][j].show();
-        }
+        // //bricks[i] = [];
+        // for (let j = 0; bricks[i].length < 2; j++) {
+        //   //bricks[i][j].x = 80 + 110 * i;
+        //   //bricks[i][j].y = 200 + 100 * j;
+        //   bricks[i][j].show();
+        // }
+        bricks.layer1[i].x = 80 + 110 * i;
+        bricks.layer1[i].y = 150;
+        bricks.layer1[i].show();
+        bricks.layer2[i].x = 80 + 110 * i;
+        bricks.layer2[i].y = 250;
+        bricks.layer2[i].show();
+        bricks.layer3[i].x = 80 + 110 * i;
+        bricks.layer3[i].y = 350;
+        bricks.layer3[i].show();
     }
     ball.show();
     if (keyIsPressed === true) {
@@ -243,11 +270,11 @@ function gamePlay() {
     }
 
     /* Fix this so the brick actually disappears ***
-    if (keyIsPressed === true) {
-        if (key === "p") {
-            bricks[2].destroy();
-        }
-    } */
+  if (keyIsPressed === true) {
+      if (key === "p") {
+          bricks[2].destroy();
+      }
+  } */
 
     if (game.lives <= 0) {
         gameBegin = false;
