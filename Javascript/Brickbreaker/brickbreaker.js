@@ -82,7 +82,13 @@ class Ball {
     }
 
     move() {
-
+        this.y -= 1;
+        if (this.y + this.d/2 >= 600) {
+            this.x = 300;
+            this.y = 530;
+            game.score -= 5;
+            game.lives -= 1;
+        }
     }
 
     collide() {
