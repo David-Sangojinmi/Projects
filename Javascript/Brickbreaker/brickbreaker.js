@@ -1,6 +1,7 @@
 let gameBegin = true;
 let gameActive = false;
 let gameFinish = false;
+let ballActive = false;
 
 let paddle = {
     xpos: 300,
@@ -177,7 +178,15 @@ function gamePlay() {
         bricks[i].show();
     }
     ball.show();
-    ball.move();
+    if (keyIsPressed === true) {
+        if (key === " ") {
+            ballActive = true;
+        }
+    }
+    if (ballActive === true) {
+        ball.show();
+        ball.move();
+    }
 
     // Paddle moving
     if (keyIsPressed === true) {
@@ -211,7 +220,10 @@ function gamePlay() {
 function gameEnd() {
     // Screen for when the game has finished
     fill(20, 20, 20);
-    rect(0, 0, 600, 700);
+    rect(300, 350, 600, 700);
+    fill(134, 207, 19);
+    textSize(30);
+    textAlign(CENTER);
     text("GAME OVER", 300, 350);
 }
 
