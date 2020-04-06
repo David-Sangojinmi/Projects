@@ -35,6 +35,8 @@ function setup() {
         //let x = 200 + 200 * i;
         bricks[i] = new Brick();
     }
+
+    //let playerName = createInput("Enter player name: ");
 }
 
 function draw() {
@@ -90,22 +92,22 @@ class Ball {
         if (this.x + this.d / 2 >= 599) {
             this.xspd = this.xspd * -1;
         }
-        if (this.y - this.d/2 <= 0) {
+        if (this.y - this.d / 2 <= 0) {
             this.yspd = this.yspd * -1;
         }
-        if (this.x - this.d/2 <= 0) {
+        if (this.x - this.d / 2 <= 0) {
             this.xspd = this.xspd * -1;
         }
-        if (this.y + this.d/2 >= 600) {
+        if (this.y + this.d / 2 >= 600) {
             this.x = 300;
             this.y = 530;
             game.score -= 5;
             game.lives -= 1;
         }
-    }
 
-    collide() {
-        // Code for colliding **Can't this just be in the move() function?**
+        if (1 === 2) {
+            this.yspd = this.yspd * -1;
+        }
     }
 }
 
@@ -129,12 +131,13 @@ function gameStart() {
     textSize(20);
     fill(235);
     text(
-        "Welcome! Use the left and right arrow keys to move the paddle left and right. You start at level 1 and you have three lives. To get points, use your paddle to hit the ball and break the bricks. You have three lives before its game over. Click the button below or press ENTER to start. Good luck!",
+        "Welcome! Use the left and right arrow keys to move the paddle left and right. Press the space bar to release the ball. You start at level 1 and you have three lives. Get points by breaking bricks with the ball and losing a life loses you points. Click the button below or press 'g' to start. Good luck!",
         300,
         400,
         380,
         375
     );
+    //text("User: " + input.playerName, 300, 545);
     rect(300, 550, 120, 50);
     fill(61, 55, 138);
     textStyle(BOLD);
@@ -149,7 +152,7 @@ function gameStart() {
         }
     }
     if (keyIsPressed === true) {
-        if (keyCode === ENTER) {
+        if (key === "g") {
             gameBegin = false;
             gameActive = true;
             gameFinish = false;
