@@ -69,7 +69,7 @@ class Ball {
         this.x = 300;
         this.y = 530;
         this.d = 20;
-        this.xspd = 1;
+        this.xspd = 2;
         this.yspd = 2;
     }
 
@@ -86,7 +86,7 @@ class Ball {
     move() {
         this.y -= this.yspd;
         this.x += this.xspd;
-        if (this.x - this.d / 2 <= 599) {
+        if (this.x + this.d / 2 >= 599) {
             this.xspd = this.xspd * -1;
         }
         if (this.y - this.d/2 <= 0) {
@@ -144,12 +144,14 @@ function gameStart() {
         if (mouseIsPressed === true) {
             gameBegin = false;
             gameActive = true;
+            gameFinish = false;
         }
     }
     if (keyIsPressed === true) {
         if (keyCode === ENTER) {
             gameBegin = false;
             gameActive = true;
+            gameFinish = false;
         }
     }
 }
@@ -199,10 +201,18 @@ function gamePlay() {
             bricks[2].destroy();
         }
     } */
+    if (game.lives <= 0) {
+        gameBegin = false;
+        gameActive = false;
+        gameFinish = true;
+    }
 }
 
 function gameEnd() {
     // Screen for when the game has finished
+    fill(20, 20, 20);
+    rect(0, 0, 600, 700);
+    text("GAME OVER", 300, 350);
 }
 
 function gameLoop() {
