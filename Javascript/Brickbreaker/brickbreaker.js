@@ -31,11 +31,10 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    for (let j = 0; j < 2; j++) {
-        bricks[j] = [];
-        for (let i = 0; i < 5; i++) {
-            //let x = 200 + 200 * i;
-            bricks[j][i] = new Brick();
+    for (let i = 0; i < 5; i++) {
+        bricks[i] = [];
+        for (let j = 0; bricks[i][j] < 2; j++) {
+            bricks[i][j] = new Brick();
         }
     }
 
@@ -52,7 +51,7 @@ function draw() {
 class Brick {
     constructor(x, y, w, h) {
         this.x = x;
-        this.y = 200;
+        this.y = y;
         this.w = 80;
         this.h = 30;
     }
@@ -125,16 +124,16 @@ class Ball {
             this.yspd = this.yspd * -1;
         }
         // Brick collision
-        for (let j = 0; j < 2; j++) {
-            bricks[j] = [];
-            for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
+            bricks[i] = [];
+            for (let j = 0; bricks[i][j] < 2; j++) {
                 if (
-                    ball.x > bricks[j][i].x - 40 &&
-                    ball.x < bricks[j][i].x + 40 &&
-                    ball.y > bricks[j][i].y - 15 &&
-                    ball.y < bricks[j][i].y + 15
+                    ball.x > bricks[i][j].x - 40 &&
+                    ball.x < bricks[i][j].x + 40 &&
+                    ball.y > bricks[i][j].y - 15 &&
+                    ball.y < bricks[i][j].y + 15
                 ) {
-                    bricks[j][i].collide();
+                    bricks[i][j].collide();
                     //this.xspd = this.xspd * -1;
                     this.yspd = this.yspd * -1;
                 }
@@ -208,9 +207,11 @@ function gamePlay() {
 
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
-    for (let j = 0; j < 2; i++) {
-        for (let i = 0; i < bricks.length; i++) {
+    for (let i = 0; i < 5; i++) {
+        bricks[i] = [];
+        for (let j = 0; bricks[i][j] < 2; j++) {
             bricks[i][j].x = 80 + 110 * i;
+            bricks[i][j].y = 200 + 100 * j;
             bricks[i][j].show();
         }
     }
