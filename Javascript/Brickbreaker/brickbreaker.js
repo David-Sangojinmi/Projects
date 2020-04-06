@@ -31,9 +31,12 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    for (let i = 0; i < 5; i++) {
-        //let x = 200 + 200 * i;
-        bricks[i] = new Brick();
+    for (let j = 0; j < 2; j++) {
+        bricks[j] = [];
+        for (let i = 0; i < 5; i++) {
+            //let x = 200 + 200 * i;
+            bricks[j][i] = new Brick();
+        }
     }
 
     //let playerName = createInput("Enter player name: ");
@@ -112,18 +115,29 @@ class Ball {
             paddle.ypos = 550;
         }
         // Paddle collision
-        if ((this.y + 10 > paddle.ypos - 9 && this.y < paddle.ypos - 10) 
-        && this.x - 10 >= paddle.xpos - 45
-        && this.x + 10 <= paddle.xpos + 45) {
+        if (
+            this.y + 10 > paddle.ypos - 9 &&
+            this.y < paddle.ypos - 10 &&
+            this.x - 10 >= paddle.xpos - 45 &&
+            this.x + 10 <= paddle.xpos + 45
+        ) {
             this.y -= 5;
             this.yspd = this.yspd * -1;
         }
         // Brick collision
-        for (let i = 0; i < bricks.length; i++) {
-            if (ball.x > bricks[i].x - 40 && ball.x < bricks[i].x + 40 && ball.y > bricks[i].y - 15 && ball.y < bricks[i].y + 15) {
-                bricks[i].collide();
-                //this.xspd = this.xspd * -1;
-                this.yspd = this.yspd * -1;
+        for (let j = 0; j < 2; j++) {
+            bricks[j] = [];
+            for (let i = 0; i < 5; i++) {
+                if (
+                    ball.x > bricks[j][i].x - 40 &&
+                    ball.x < bricks[j][i].x + 40 &&
+                    ball.y > bricks[j][i].y - 15 &&
+                    ball.y < bricks[j][i].y + 15
+                ) {
+                    bricks[j][i].collide();
+                    //this.xspd = this.xspd * -1;
+                    this.yspd = this.yspd * -1;
+                }
             }
         }
     }
@@ -194,9 +208,11 @@ function gamePlay() {
 
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
-    for (let i = 0; i < bricks.length; i++) {
-        bricks[i].x = 80 + 110 * i;
-        bricks[i].show();
+    for (let j = 0; j < 2; i++) {
+        for (let i = 0; i < bricks.length; i++) {
+            bricks[i][j].x = 80 + 110 * i;
+            bricks[i][j].show();
+        }
     }
     ball.show();
     if (keyIsPressed === true) {
