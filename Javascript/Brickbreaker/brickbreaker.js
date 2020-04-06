@@ -81,8 +81,12 @@ class Ball {
         circle(this.x - 3, this.y - 3, 7);
     }
 
+    move() {
+
+    }
+
     collide() {
-        // Code for colliding
+        // Code for colliding **Can't this just be in the move() function?**
     }
 }
 
