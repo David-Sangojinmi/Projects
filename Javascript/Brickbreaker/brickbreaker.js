@@ -122,7 +122,7 @@ class Ball {
             this.x + 10 <= paddle.xpos + 45
         ) {
             this.y -= 5;
-            this.xspd = this.xspd * random(-0.95, -1.05);
+            this.xspd = this.xspd * random(0.95, 1.05);
             this.yspd = this.yspd * random(-0.95, -1.05);
         }
         // Brick collision
@@ -138,26 +138,28 @@ class Ball {
                 //bricks.layer1[i].noFill;
                 bricks.layer1[i].collide();
             }
-            // if (
-            //     ball.x > bricks.layer2[i].x - 40 &&
-            //     ball.x < bricks.layer2[i].x + 40 &&
-            //     ball.y > bricks.layer2[i].y - 15 &&
-            //     ball.y < bricks.layer2[i].y + 15
-            // ) {
-            //     bricks.layer2[i].collide();
-            //     //this.xspd = this.xspd * -1;
-            //     this.yspd = this.yspd * -1;
-            // }
-            // if (
-            //     ball.x > bricks.layer3[i].x - 40 &&
-            //     ball.x < bricks.layer3[i].x + 40 &&
-            //     ball.y > bricks.layer3[i].y - 15 &&
-            //     ball.y < bricks.layer3[i].y + 15
-            // ) {
-            //     bricks.layer3[i].collide();
-            //     //this.xspd = this.xspd * -1;
-            //     this.yspd = this.yspd * -1;
-            // }
+            if (
+                ball.x > bricks.layer2[i].x - 40 &&
+                ball.x < bricks.layer2[i].x + 40 &&
+                ball.y > bricks.layer2[i].y - 15 &&
+                ball.y < bricks.layer2[i].y + 15
+            ) {
+                this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
+                //bricks.layer1[i].noFill;
+                bricks.layer2[i].collide();
+            }
+            if (
+                ball.x > bricks.layer3[i].x - 40 &&
+                ball.x < bricks.layer3[i].x + 40 &&
+                ball.y > bricks.layer3[i].y - 15 &&
+                ball.y < bricks.layer3[i].y + 15
+            ) {
+                this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
+                //bricks.layer1[i].noFill;
+                bricks.layer3[i].collide();
+            }
         }
     }
 }
