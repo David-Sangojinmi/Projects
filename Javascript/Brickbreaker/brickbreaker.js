@@ -10,12 +10,12 @@ let paddle = {
     height: 20,
 };
 
-let padpos = {
+/* let padpos = {
     left: paddle.xpos - paddle.width / 2,
     right: paddle.xpos + paddle.width / 2,
     top: paddle.ypos - paddle.height / 2,
     bottom: paddle.ypos + paddle.height / 2,
-};
+}; */
 
 let bricks = [];
 
