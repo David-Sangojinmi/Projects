@@ -68,7 +68,7 @@ class Brick {
         noFill();
         noStroke();
         this.x = 300;
-        this.y = 800;
+        this.y = 900;
         game.score += 5;
     }
 }
@@ -132,30 +132,31 @@ class Ball {
                 ball.y > bricks.layer1[i].y - 15 &&
                 ball.y < bricks.layer1[i].y + 15
             ) {
+                this.xspd = this.xspd * -1;
+                this.yspd = this.yspd * -1;
+                //bricks.layer1[i].noFill;
                 bricks.layer1[i].collide();
-                //this.xspd = this.xspd * -1;
-                this.yspd = this.yspd * -1;
             }
-            if (
-                ball.x > bricks.layer2[i].x - 40 &&
-                ball.x < bricks.layer2[i].x + 40 &&
-                ball.y > bricks.layer2[i].y - 15 &&
-                ball.y < bricks.layer2[i].y + 15
-            ) {
-                bricks.layer2[i].collide();
-                //this.xspd = this.xspd * -1;
-                this.yspd = this.yspd * -1;
-            }
-            if (
-                ball.x > bricks.layer3[i].x - 40 &&
-                ball.x < bricks.layer3[i].x + 40 &&
-                ball.y > bricks.layer3[i].y - 15 &&
-                ball.y < bricks.layer3[i].y + 15
-            ) {
-                bricks.layer3[i].collide();
-                //this.xspd = this.xspd * -1;
-                this.yspd = this.yspd * -1;
-            }
+            // if (
+            //     ball.x > bricks.layer2[i].x - 40 &&
+            //     ball.x < bricks.layer2[i].x + 40 &&
+            //     ball.y > bricks.layer2[i].y - 15 &&
+            //     ball.y < bricks.layer2[i].y + 15
+            // ) {
+            //     bricks.layer2[i].collide();
+            //     //this.xspd = this.xspd * -1;
+            //     this.yspd = this.yspd * -1;
+            // }
+            // if (
+            //     ball.x > bricks.layer3[i].x - 40 &&
+            //     ball.x < bricks.layer3[i].x + 40 &&
+            //     ball.y > bricks.layer3[i].y - 15 &&
+            //     ball.y < bricks.layer3[i].y + 15
+            // ) {
+            //     bricks.layer3[i].collide();
+            //     //this.xspd = this.xspd * -1;
+            //     this.yspd = this.yspd * -1;
+            // }
         }
     }
 }
@@ -236,10 +237,10 @@ function gamePlay() {
         bricks.layer1[i].y = 150;
         bricks.layer1[i].show();
         bricks.layer2[i].x = 80 + 110 * i;
-        bricks.layer2[i].y = 250;
+        bricks.layer2[i].y = 200;
         bricks.layer2[i].show();
         bricks.layer3[i].x = 80 + 110 * i;
-        bricks.layer3[i].y = 350;
+        bricks.layer3[i].y = 250;
         bricks.layer3[i].show();
     }
     ball.show();
@@ -268,13 +269,6 @@ function gamePlay() {
     if (paddle.xpos + 45 >= 599) {
         paddle.xpos = 555;
     }
-
-    /* Fix this so the brick actually disappears ***
-  if (keyIsPressed === true) {
-      if (key === "p") {
-          bricks[2].destroy();
-      }
-  } */
 
     if (game.lives <= 0) {
         gameBegin = false;
