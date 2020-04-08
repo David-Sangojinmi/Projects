@@ -1,8 +1,10 @@
-# This algorithm can be used to find a peak in a given set of numbers
-# which are inputted. A number is a peak if it is greater than or equal
-# to the numbers which come before and after it. For example in the input
-# of [3, 5, 7, 6, 4] the peak would be 7 as it is greater than or equal to
-# both 5 and 6.
+# Author: David Sangojinmi                                                 #
+#==========================================================================#
+# This algorithm can be used to find a peak in a given set of numbers      #
+# which are inputted. A number is a peak if it is greater than or equal    #
+# to the numbers which come before and after it. For example in the input  #
+# of [3, 5, 7, 6, 4] the peak would be 7 as it is greater than or equal to #
+# both 5 and 6.                                                            #
 
 list = [int(num) for num in input("Enter a list of numbers: ").split()]
 foundPeak = True
