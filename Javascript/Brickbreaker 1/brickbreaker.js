@@ -56,8 +56,7 @@ class Brick {
         if (this.collided === true) {
             noFill();
             noStroke();
-            this.x = 300;
-            this.y = 900;
+            this.x = 900;
         } else {
             stroke(145, 0, 0);
             strokeWeight(4);
@@ -187,7 +186,7 @@ function gamePlay() {
 
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 18; i++) {
         // Not the most efficient way but it will suffice for now
         if (i <= 5) {
             bricks[i].x = 50 + 100 * i;
@@ -195,15 +194,15 @@ function gamePlay() {
         }
         if (i <= 11 && i >= 6) {
             bricks[i].x = 50 + 100 * (i-6);
-            bricks[i].y = 150;
+            bricks[i].y = 139;
         }
         if (i <= 17 && i >= 12) {
             bricks[i].x = 50 + 100 * (i-12);
-            bricks[i].y = 200;
+            bricks[i].y = 178;
         }
         bricks[i].show();
     }
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 18; i++) {
         if (
             ball.x > bricks[i].x - (bricks[i].w / 2) &&
             ball.x < bricks[i].x + (bricks[i].w / 2) &&
@@ -213,7 +212,7 @@ function gamePlay() {
             //ball.xspd = ball.xspd * -1;
             ball.yspd = ball.yspd * random(-0.85, -1.15);
             bricks[i].collided = true;
-            game.score += 5;
+            game.score += 2;
         }
     }
     ball.show();
@@ -270,6 +269,26 @@ function gameEnd() {
     // To restart the game
     if (keyIsPressed === true) {
         if (key === "r") {
+            // Resetting all the variables
+            game.score = 0;
+            game.lives = 5;
+            ball.xspd = ball.xspd * -1;
+            ball.yspd = 3;
+            for (let i = 0; i < 18; i++) {
+                bricks[i].collided = false;
+                if (i <= 5) {
+                    bricks[i].x = 50 + 100 * i;
+                    bricks[i].y = 100;
+                }
+                if (i <= 11 && i >= 6) {
+                    bricks[i].x = 50 + 100 * (i - 6);
+                    bricks[i].y = 139;
+                }
+                if (i <= 17 && i >= 12) {
+                    bricks[i].x = 50 + 100 * (i - 12);
+                    bricks[i].y = 178;
+                }
+            }
             gameBegin = true;
             gameActive = false;
             gameFinish = false;
