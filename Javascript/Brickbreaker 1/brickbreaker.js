@@ -18,12 +18,6 @@ let paddle = {
     bottom: paddle.ypos + paddle.height / 2,
 }; */
 
-/* let bricks = {
-    layer1: [],
-    layer2: [],
-    layer3: [],
-}; */
-
 let bricks = [];
 
 let game = {
@@ -37,9 +31,8 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 18; i++) {
         bricks[i] = new Brick();
-        // Include a way to implement layers of bricks
     }
 }
 
@@ -54,7 +47,7 @@ class Brick {
     constructor(x, y, w, h, collided) {
         this.x = x;
         this.y = y;
-        this.w = 80;
+        this.w = 91;
         this.h = 30;
         this.collided = false;
     }
@@ -196,26 +189,26 @@ function gamePlay() {
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
     for (let i = 0; i < 15; i++) {
         // Not the most efficient way but it will suffice for now
-        if (i <= 4) {
-            bricks[i].x = 80 + 110 * i;
+        if (i <= 5) {
+            bricks[i].x = 50 + 100 * i;
             bricks[i].y = 100;
         }
-        if (i <= 9 && i >= 5) {
-            bricks[i].x = 80 + 110 * (i-5);
+        if (i <= 11 && i >= 6) {
+            bricks[i].x = 50 + 100 * (i-6);
             bricks[i].y = 150;
         }
-        if (i <= 14 && i >= 10) {
-            bricks[i].x = 80 + 110 * (i-10);
+        if (i <= 17 && i >= 12) {
+            bricks[i].x = 50 + 100 * (i-12);
             bricks[i].y = 200;
         }
         bricks[i].show();
     }
     for (let i = 0; i < 15; i++) {
         if (
-            ball.x > bricks[i].x - 40 &&
-            ball.x < bricks[i].x + 40 &&
-            ball.y > bricks[i].y - 15 &&
-            ball.y < bricks[i].y + 15
+            ball.x > bricks[i].x - (bricks[i].w / 2) &&
+            ball.x < bricks[i].x + (bricks[i].w / 2) &&
+            ball.y > bricks[i].y - (bricks[i].h / 2) &&
+            ball.y < bricks[i].y + (bricks[i].h / 2)
         ) {
             //ball.xspd = ball.xspd * -1;
             ball.yspd = ball.yspd * random(-0.85, -1.15);
@@ -264,7 +257,24 @@ function gameEnd() {
     fill(134, 207, 19);
     textSize(30);
     textAlign(CENTER);
-    text("GAME OVER", 300, 350);
+    text("GAME OVER", 300, 300);
+    textSize(17);
+    text("Press 'r' to restart", 300, 400);
+    /* Implement this: when the player dies, their total points is
+    recorded in a text file along with possible their player name.
+    At the end of the game there is a list of all the players and 
+    their scores when they died. Save the scores in some sort of 
+    text file and then show this text file in a nicer form on the
+    game end screen                                               */
+    
+    // To restart the game
+    if (keyIsPressed === true) {
+        if (key === "r") {
+            gameBegin = true;
+            gameActive = false;
+            gameFinish = false;
+        }
+    }
 }
 
 function gameLoop() {
