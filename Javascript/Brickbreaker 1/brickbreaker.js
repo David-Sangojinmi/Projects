@@ -52,76 +52,81 @@ function draw() {
 }
 
 class Brick {
-    constructor(x, y, w, h) {
+    constructor(x, y, w, h, collided) {
         this.x = x;
         this.y = y;
         this.w = 80;
         this.h = 30;
+        this.collided = false;
     }
 
     show() {
-        stroke(145, 0, 0);
-        strokeWeight(4);
-        fill(189, 9, 9);
-        rect(this.x, this.y, this.w, this.h);
-    }
+        // stroke(145, 0, 0);
+        // strokeWeight(4);
+        // fill(189, 9, 9);
+        // rect(this.x, this.y, this.w, this.h);
 
-    collide() {
-        noFill();
-        noStroke();
-        this.x = 300;
-        this.y = 900;
-        game.score += 5;
-    }
-
-    isColliding() {
-        for (let i = 0; i < 5; i++) {
-            if (
-                ball.x > bricks[i].x - 40 &&
-                ball.x < bricks[i].x + 40 &&
-                ball.y > bricks[i].y - 15 &&
-                ball.y < bricks[i].y + 15
-            ) {
-                ball.xspd = ball.xspd * -1;
-                ball.yspd = ball.yspd * -1;
-                //bricks.layer1[i].noFill;
-                bricks[i].collide();
-            }
-            // if (
-            //     ball.x > bricks.layer1[i].x - 40 &&
-            //     ball.x < bricks.layer1[i].x + 40 &&
-            //     ball.y > bricks.layer1[i].y - 15 &&
-            //     ball.y < bricks.layer1[i].y + 15
-            // ) {
-            //     this.xspd = this.xspd * -1;
-            //     this.yspd = this.yspd * -1;
-            //     //bricks.layer1[i].noFill;
-            //     bricks.layer1[i].collide();
-            // }
-            // if (
-            //     ball.x > bricks.layer2[i].x - 40 &&
-            //     ball.x < bricks.layer2[i].x + 40 &&
-            //     ball.y > bricks.layer2[i].y - 15 &&
-            //     ball.y < bricks.layer2[i].y + 15
-            // ) {
-            //     this.xspd = this.xspd * -1;
-            //     this.yspd = this.yspd * -1;
-            //     //bricks.layer1[i].noFill;
-            //     bricks.layer2[i].collide();
-            // }
-            // if (
-            //     ball.x > bricks.layer3[i].x - 40 &&
-            //     ball.x < bricks.layer3[i].x + 40 &&
-            //     ball.y > bricks.layer3[i].y - 15 &&
-            //     ball.y < bricks.layer3[i].y + 15
-            // ) {
-            //     this.xspd = this.xspd * -1;
-            //     this.yspd = this.yspd * -1;
-            //     //bricks.layer1[i].noFill;
-            //     bricks.layer3[i].collide();
-            // }
+        if (this.collided === true) {
+            noFill();
+            noStroke();
+            this.x = 300;
+            this.y = 900;
+        } else {
+            stroke(145, 0, 0);
+            strokeWeight(4);
+            fill(189, 9, 9);
+            rect(this.x, this.y, this.w, this.h);
         }
     }
+
+    // isColliding() {
+    //     for (let i = 0; i < 5; i++) {
+    //         if (
+    //             ball.x > bricks[i].x - 40 &&
+    //             ball.x < bricks[i].x + 40 &&
+    //             ball.y > bricks[i].y - 15 &&
+    //             ball.y < bricks[i].y + 15
+    //         ) {
+    //             ball.xspd = ball.xspd * -1;
+    //             ball.yspd = ball.yspd * -1;
+    //             //bricks.layer1[i].noFill;
+    //             bricks[i].collide();
+    //         }
+    //         // if (
+    //         //     ball.x > bricks.layer1[i].x - 40 &&
+    //         //     ball.x < bricks.layer1[i].x + 40 &&
+    //         //     ball.y > bricks.layer1[i].y - 15 &&
+    //         //     ball.y < bricks.layer1[i].y + 15
+    //         // ) {
+    //         //     this.xspd = this.xspd * -1;
+    //         //     this.yspd = this.yspd * -1;
+    //         //     //bricks.layer1[i].noFill;
+    //         //     bricks.layer1[i].collide();
+    //         // }
+    //         // if (
+    //         //     ball.x > bricks.layer2[i].x - 40 &&
+    //         //     ball.x < bricks.layer2[i].x + 40 &&
+    //         //     ball.y > bricks.layer2[i].y - 15 &&
+    //         //     ball.y < bricks.layer2[i].y + 15
+    //         // ) {
+    //         //     this.xspd = this.xspd * -1;
+    //         //     this.yspd = this.yspd * -1;
+    //         //     //bricks.layer1[i].noFill;
+    //         //     bricks.layer2[i].collide();
+    //         // }
+    //         // if (
+    //         //     ball.x > bricks.layer3[i].x - 40 &&
+    //         //     ball.x < bricks.layer3[i].x + 40 &&
+    //         //     ball.y > bricks.layer3[i].y - 15 &&
+    //         //     ball.y < bricks.layer3[i].y + 15
+    //         // ) {
+    //         //     this.xspd = this.xspd * -1;
+    //         //     this.yspd = this.yspd * -1;
+    //         //     //bricks.layer1[i].noFill;
+    //         //     bricks.layer3[i].collide();
+    //         // }
+    //     }
+    // }
 }
 
 class Ball {
@@ -227,7 +232,7 @@ function gameStart() {
     textSize(60);
     fill(250);
     textFont("courier");
-    text("UPDATED", 300, 170);
+    text("BRICKBREAKER", 300, 170);
 
     // Instructions
     textAlign(CENTER);
@@ -287,11 +292,11 @@ function gamePlay() {
         //   //bricks[i][j].y = 200 + 100 * j;
         //   bricks[i][j].show();
         // }
-        bricks[i].x = 80 + 110*i;
+        bricks[i].x = 80 + 110 * i;
         bricks[i].y = 150;
         bricks[i].show();
         //bricks[i].collide;
-        bricks[i].isColliding;
+        //bricks[i].isColliding();
         // bricks.layer1[i].x = 80 + 110 * i;
         // bricks.layer1[i].y = 150;
         // bricks.layer1[i].show();
@@ -301,6 +306,20 @@ function gamePlay() {
         // bricks.layer3[i].x = 80 + 110 * i;
         // bricks.layer3[i].y = 250;
         // bricks.layer3[i].show();
+    }
+    for (let i = 0; i < 5; i++) {
+        if (
+            ball.x > bricks[i].x - 40 &&
+            ball.x < bricks[i].x + 40 &&
+            ball.y > bricks[i].y - 15 &&
+            ball.y < bricks[i].y + 15
+        ) {
+            ball.xspd = ball.xspd * -1;
+            ball.yspd = ball.yspd * -1;
+            //bricks.layer1[i].noFill;
+            bricks[i].collided = true;
+            game.score += 5;
+        }
     }
     ball.show();
     if (keyIsPressed === true) {
