@@ -37,7 +37,7 @@ function setup() {
     rectMode(CENTER);
     ellipseMode(CENTER);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 15; i++) {
         bricks[i] = new Brick();
         // Include a way to implement layers of bricks
     }
@@ -124,7 +124,7 @@ class Ball {
         ) {
             this.y -= 5;
             this.xspd = this.xspd * random(0.95, 1.05);
-            this.yspd = this.yspd * random(-0.95, -1.05);
+            this.yspd = this.yspd * random(-0.85, -1.15);
         }
     }
 }
@@ -194,20 +194,31 @@ function gamePlay() {
 
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
-    for (let i = 0; i < 5; i++) {
-        bricks[i].x = 80 + 110 * i;
-        bricks[i].y = 150;
+    for (let i = 0; i < 15; i++) {
+        // Not the most efficient way but it will suffice for now
+        if (i <= 4) {
+            bricks[i].x = 80 + 110 * i;
+            bricks[i].y = 100;
+        }
+        if (i <= 9 && i >= 5) {
+            bricks[i].x = 80 + 110 * (i-5);
+            bricks[i].y = 150;
+        }
+        if (i <= 14 && i >= 10) {
+            bricks[i].x = 80 + 110 * (i-10);
+            bricks[i].y = 200;
+        }
         bricks[i].show();
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 15; i++) {
         if (
             ball.x > bricks[i].x - 40 &&
             ball.x < bricks[i].x + 40 &&
             ball.y > bricks[i].y - 15 &&
             ball.y < bricks[i].y + 15
         ) {
-            ball.xspd = ball.xspd * -1;
-            ball.yspd = ball.yspd * -1;
+            //ball.xspd = ball.xspd * -1;
+            ball.yspd = ball.yspd * random(-0.85, -1.15);
             bricks[i].collided = true;
             game.score += 5;
         }
