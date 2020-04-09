@@ -39,8 +39,7 @@ function setup() {
 
     for (let i = 0; i < 5; i++) {
         bricks[i] = new Brick();
-        // bricks.layer2[i] = new Brick();
-        // bricks.layer3[i] = new Brick();
+        // Include a way to implement layers of bricks
     }
 }
 
@@ -61,11 +60,6 @@ class Brick {
     }
 
     show() {
-        // stroke(145, 0, 0);
-        // strokeWeight(4);
-        // fill(189, 9, 9);
-        // rect(this.x, this.y, this.w, this.h);
-
         if (this.collided === true) {
             noFill();
             noStroke();
@@ -78,55 +72,6 @@ class Brick {
             rect(this.x, this.y, this.w, this.h);
         }
     }
-
-    // isColliding() {
-    //     for (let i = 0; i < 5; i++) {
-    //         if (
-    //             ball.x > bricks[i].x - 40 &&
-    //             ball.x < bricks[i].x + 40 &&
-    //             ball.y > bricks[i].y - 15 &&
-    //             ball.y < bricks[i].y + 15
-    //         ) {
-    //             ball.xspd = ball.xspd * -1;
-    //             ball.yspd = ball.yspd * -1;
-    //             //bricks.layer1[i].noFill;
-    //             bricks[i].collide();
-    //         }
-    //         // if (
-    //         //     ball.x > bricks.layer1[i].x - 40 &&
-    //         //     ball.x < bricks.layer1[i].x + 40 &&
-    //         //     ball.y > bricks.layer1[i].y - 15 &&
-    //         //     ball.y < bricks.layer1[i].y + 15
-    //         // ) {
-    //         //     this.xspd = this.xspd * -1;
-    //         //     this.yspd = this.yspd * -1;
-    //         //     //bricks.layer1[i].noFill;
-    //         //     bricks.layer1[i].collide();
-    //         // }
-    //         // if (
-    //         //     ball.x > bricks.layer2[i].x - 40 &&
-    //         //     ball.x < bricks.layer2[i].x + 40 &&
-    //         //     ball.y > bricks.layer2[i].y - 15 &&
-    //         //     ball.y < bricks.layer2[i].y + 15
-    //         // ) {
-    //         //     this.xspd = this.xspd * -1;
-    //         //     this.yspd = this.yspd * -1;
-    //         //     //bricks.layer1[i].noFill;
-    //         //     bricks.layer2[i].collide();
-    //         // }
-    //         // if (
-    //         //     ball.x > bricks.layer3[i].x - 40 &&
-    //         //     ball.x < bricks.layer3[i].x + 40 &&
-    //         //     ball.y > bricks.layer3[i].y - 15 &&
-    //         //     ball.y < bricks.layer3[i].y + 15
-    //         // ) {
-    //         //     this.xspd = this.xspd * -1;
-    //         //     this.yspd = this.yspd * -1;
-    //         //     //bricks.layer1[i].noFill;
-    //         //     bricks.layer3[i].collide();
-    //         // }
-    //     }
-    // }
 }
 
 class Ball {
@@ -181,42 +126,6 @@ class Ball {
             this.xspd = this.xspd * random(0.95, 1.05);
             this.yspd = this.yspd * random(-0.95, -1.05);
         }
-        // Brick collision
-        // for (let i = 0; i < 5; i++) {
-        //     if (
-        //         ball.x > bricks.layer1[i].x - 40 &&
-        //         ball.x < bricks.layer1[i].x + 40 &&
-        //         ball.y > bricks.layer1[i].y - 15 &&
-        //         ball.y < bricks.layer1[i].y + 15
-        //     ) {
-        //         this.xspd = this.xspd * -1;
-        //         this.yspd = this.yspd * -1;
-        //         //bricks.layer1[i].noFill;
-        //         bricks.layer1[i].collide();
-        //     }
-        //     if (
-        //         ball.x > bricks.layer2[i].x - 40 &&
-        //         ball.x < bricks.layer2[i].x + 40 &&
-        //         ball.y > bricks.layer2[i].y - 15 &&
-        //         ball.y < bricks.layer2[i].y + 15
-        //     ) {
-        //         this.xspd = this.xspd * -1;
-        //         this.yspd = this.yspd * -1;
-        //         //bricks.layer1[i].noFill;
-        //         bricks.layer2[i].collide();
-        //     }
-        //     if (
-        //         ball.x > bricks.layer3[i].x - 40 &&
-        //         ball.x < bricks.layer3[i].x + 40 &&
-        //         ball.y > bricks.layer3[i].y - 15 &&
-        //         ball.y < bricks.layer3[i].y + 15
-        //     ) {
-        //         this.xspd = this.xspd * -1;
-        //         this.yspd = this.yspd * -1;
-        //         //bricks.layer1[i].noFill;
-        //         bricks.layer3[i].collide();
-        //     }
-        // }
     }
 }
 
@@ -286,26 +195,9 @@ function gamePlay() {
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
     for (let i = 0; i < 5; i++) {
-        // //bricks[i] = [];
-        // for (let j = 0; bricks[i].length < 2; j++) {
-        //   //bricks[i][j].x = 80 + 110 * i;
-        //   //bricks[i][j].y = 200 + 100 * j;
-        //   bricks[i][j].show();
-        // }
         bricks[i].x = 80 + 110 * i;
         bricks[i].y = 150;
         bricks[i].show();
-        //bricks[i].collide;
-        //bricks[i].isColliding();
-        // bricks.layer1[i].x = 80 + 110 * i;
-        // bricks.layer1[i].y = 150;
-        // bricks.layer1[i].show();
-        // bricks.layer2[i].x = 80 + 110 * i;
-        // bricks.layer2[i].y = 200;
-        // bricks.layer2[i].show();
-        // bricks.layer3[i].x = 80 + 110 * i;
-        // bricks.layer3[i].y = 250;
-        // bricks.layer3[i].show();
     }
     for (let i = 0; i < 5; i++) {
         if (
@@ -316,7 +208,6 @@ function gamePlay() {
         ) {
             ball.xspd = ball.xspd * -1;
             ball.yspd = ball.yspd * -1;
-            //bricks.layer1[i].noFill;
             bricks[i].collided = true;
             game.score += 5;
         }
