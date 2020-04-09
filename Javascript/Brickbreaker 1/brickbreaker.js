@@ -227,7 +227,7 @@ function gameStart() {
     textSize(60);
     fill(250);
     textFont("courier");
-    text("BRICK BREAKER", 300, 170);
+    text("UPDATED", 300, 170);
 
     // Instructions
     textAlign(CENTER);
@@ -289,7 +289,8 @@ function gamePlay() {
         // }
         bricks[i].x = 80 + 110*i;
         bricks[i].y = 150;
-        bricks[i].collide;
+        bricks[i].show();
+        //bricks[i].collide;
         bricks[i].isColliding;
         // bricks.layer1[i].x = 80 + 110 * i;
         // bricks.layer1[i].y = 150;
