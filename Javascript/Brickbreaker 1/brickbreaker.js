@@ -1,3 +1,15 @@
+// Brickbreaker game                                                    //
+// Author: David Sangojinmi                                             //
+// To-dos:                                                              //
+// (1) Make so the ball bounces the correct way depending on which side //
+// of the brick it collides with                                        //
+// (2) The direction and speed of the balls rebound should change based //
+// on where it collides with the paddle                                 //
+// (3) Maybe change dimensions of the brick (smaller) and the game      //
+// screen (wider & shorter)
+// (4) Implement levels and each level will have a different configur- //
+// ation of bricks
+
 let gameBegin = true;
 let gameActive = false;
 let gameFinish = false;
@@ -91,7 +103,7 @@ class Ball {
         this.x = 300;
         this.y = 530;
         this.d = 20;
-        this.xspd = 5;
+        this.xspd = 7;
         this.yspd = 3;
     }
 
@@ -131,8 +143,8 @@ class Ball {
         if (
             this.y + 10 > paddle.ypos - 9 &&
             this.y < paddle.ypos - 10 &&
-            this.x - 10 >= paddle.xpos - 45 &&
-            this.x + 10 <= paddle.xpos + 45
+            this.x - 10 >= paddle.xpos - 47 &&
+            this.x + 10 <= paddle.xpos + 47
         ) {
             this.y -= 5;
             this.xspd = this.xspd * random(0.95, 1.05);
