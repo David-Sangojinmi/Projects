@@ -5,8 +5,3 @@ body {
 #gameScreen {
     border: 1px solid black;
 }
-
-canvas {
-    width: 800px;
-    height: 800px;
-}
