@@ -18,7 +18,14 @@ let paddle = {
     bottom: paddle.ypos + paddle.height / 2,
 }; */
 
-let bricks = [];
+let bground;
+let bbFont;
+//let bbFont3;
+
+let bricks = [1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1];
 
 let game = {
     level: 1,
@@ -26,13 +33,25 @@ let game = {
     lives: 5,
 };
 
+function preload() {
+    bground = loadImage("bg1.png");
+    bbFont = loadImage("bbfont.png")
+    //bbFont1 = loadFont('dpComic..ttf');
+    //bbFont2 = loadFont('orangeKid.ttf');
+    //bbFont3 = loadFont('minecraftEvenings.ttf');
+    //bbFont3 = loadFont('minecraft-evenings.regular')
+}
+
 function setup() {
     createCanvas(600, 700);
     rectMode(CENTER);
+    imageMode(CENTER);
     ellipseMode(CENTER);
 
-    for (let i = 0; i < 18; i++) {
-        bricks[i] = new Brick();
+    for (let i = 0; i < bricks.length; i++) {
+        if (bricks[i] === 1) {
+            bricks[i] = new Brick();
+        }
     }
 }
 
@@ -47,8 +66,9 @@ class Brick {
     constructor(x, y, w, h, collided) {
         this.x = x;
         this.y = y;
-        this.w = 91;
-        this.h = 30;
+        this.w = 97;
+        this.h = 36;
+        this.r = random(98, 207);
         this.collided = false;
     }
 
@@ -58,9 +78,9 @@ class Brick {
             noStroke();
             this.x = 900;
         } else {
-            stroke(145, 0, 0);
-            strokeWeight(4);
-            fill(189, 9, 9);
+            stroke(71, 0, 0);
+            strokeWeight(1);
+            fill(this.r, 0, 0);
             rect(this.x, this.y, this.w, this.h);
         }
     }
@@ -77,12 +97,12 @@ class Ball {
 
     show() {
         strokeWeight(1);
-        stroke(158, 158, 158);
-        fill(79, 75, 75);
+        stroke(200);
+        fill(16, 59, 232);
         circle(this.x, this.y, this.d);
         noStroke();
-        fill(173, 172, 172);
-        circle(this.x - 3, this.y - 3, 7);
+        fill(222, 222, 222);
+        circle(this.x - 3, this.y - 3, 6);
     }
 
     move() {
@@ -125,26 +145,29 @@ let ball = new Ball();
 
 function gameStart() {
     // Screen for the start of the game
-    noStroke();
-    fill(61, 55, 138);
-    rect(300, 350, 600, 700);
-    textAlign(CENTER);
-    textStyle(BOLD);
-    textSize(60);
-    fill(250);
-    textFont("courier");
-    text("BRICKBREAKER", 300, 170);
+    image(bground, 300, 350);
+    // noStroke();
+    // fill(61, 55, 138);
+    // rect(300, 350, 600, 700);
+    image(bbFont, 300, 165, 338);
+    // textAlign(CENTER);
+    // textStyle(BOLD);
+    // textSize(50);
+    // fill(250);
+    // textFont(bbFont3);
+    // text("BRICKBREAKER", 300, 170);
 
     // Instructions
     textAlign(CENTER);
     textStyle(NORMAL);
     textSize(20);
     fill(235);
+    textFont("courier");
     text(
-        "Welcome! Use the left and right arrow keys to move the paddle left and right. Press the space bar to release the ball. You start at level 1 and you have five lives. Get points by breaking bricks with the ball and losing a life loses you points. Click the button below or press 'g' to start. Good luck!",
+        "Welcome! Use the left and right arrow keys to move the paddle. Press the space bar to release the ball. You have five lives. Break the bricks with the ball to get points and if you don't hit the ball, you lose points and a life. Click the button below or press 'g' to start. Good luck!",
         300,
-        400,
-        380,
+        412,
+        340,
         375
     );
     //text("User: " + input.playerName, 300, 545);
@@ -173,11 +196,14 @@ function gameStart() {
 function gamePlay() {
     // Screen for when the game is active
     // Show the game stats: level, points and lives
-    stroke(255);
+    fill(125, 125, 125);
+    rect(300, 650, 600, 100);
+    stroke(71, 71, 71);
+    strokeWeight(4);
     line(0, 600, 600, 600);
     noStroke();
     textAlign(CENTER);
-    textStyle(NORMAL);
+    textStyle(BOLD);
     textSize(20);
     fill(250);
     text("Level: " + game.level, 150, 650);
@@ -186,28 +212,32 @@ function gamePlay() {
 
     // Draw the paddle, bricks and the ball
     rect(paddle.xpos, paddle.ypos, paddle.width, paddle.height, 5, 5, 10, 10);
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < bricks.length; i++) {
         // Not the most efficient way but it will suffice for now
         if (i <= 5) {
             bricks[i].x = 50 + 100 * i;
-            bricks[i].y = 100;
+            bricks[i].y = 20;
         }
         if (i <= 11 && i >= 6) {
-            bricks[i].x = 50 + 100 * (i-6);
-            bricks[i].y = 139;
+            bricks[i].x = 50 + 100 * (i - 6);
+            bricks[i].y = 59;
         }
         if (i <= 17 && i >= 12) {
-            bricks[i].x = 50 + 100 * (i-12);
-            bricks[i].y = 178;
+            bricks[i].x = 50 + 100 * (i - 12);
+            bricks[i].y = 98;
+        }
+        if (i <= 23 && i >= 18) {
+            bricks[i].x = 50 + 100 * (i - 18);
+            bricks[i].y = 137;
         }
         bricks[i].show();
     }
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < bricks.length; i++) {
         if (
-            ball.x > bricks[i].x - (bricks[i].w / 2) &&
-            ball.x < bricks[i].x + (bricks[i].w / 2) &&
-            ball.y > bricks[i].y - (bricks[i].h / 2) &&
-            ball.y < bricks[i].y + (bricks[i].h / 2)
+            ball.x > bricks[i].x - bricks[i].w / 2 &&
+            ball.x < bricks[i].x + bricks[i].w / 2 &&
+            ball.y > bricks[i].y - bricks[i].h / 2 &&
+            ball.y < bricks[i].y + bricks[i].h / 2
         ) {
             //ball.xspd = ball.xspd * -1;
             ball.yspd = ball.yspd * random(-0.85, -1.15);
@@ -265,7 +295,7 @@ function gameEnd() {
     their scores when they died. Save the scores in some sort of 
     text file and then show this text file in a nicer form on the
     game end screen                                               */
-    
+
     // To restart the game
     if (keyIsPressed === true) {
         if (key === "r") {
