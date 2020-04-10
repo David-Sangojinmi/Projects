@@ -326,13 +326,18 @@ function gameEnd() {
     textSize(20);
     text("Highscores:", 100, 250);
     textSize(17);
-    for (let i = 0; i < highscores.length; i++) {
-        if (i/2 != 0) {
+    let score1Pos = 0;
+    let score2Pos = 0;
+    for (let i = 0; i < scores.length; i++) {
+        
+        if (i % 2 == 0) {
             textAlign(RIGHT);
-            text(scores[i], 500, 320);
+            text(scores[i], 500, 310 + score1Pos*30);
+            score1Pos++;
         } else {
             textAlign(LEFT);
-            text(scores[i], 100, 320);
+            text(scores[i], 100, 310 + score2Pos * 30);
+            score2Pos++;
         }
         // text(highscores[i], 280, (340 + i*50));
     }
