@@ -35,6 +35,7 @@ let bbFont;
 let scores;
 let highScores;
 let plyrInput;
+let pinput;
 let plyrName;
 let nameEnter;
 //let bbFont3;
@@ -64,14 +65,13 @@ function setup() {
     imageMode(CENTER);
     ellipseMode(CENTER);
 
-    // highScores = join(scores, '\n');
     plyrName = createElement('p', 'Enter player name:');
     plyrName.position(10, 820);
-    plyrInput = createInput();
-    plyrInput.position(150, 835);
+    pinput = createInput();
+    pinput.position(150, 835);
     nameEnter = createButton('Enter');
-    nameEnter.position(plyrInput.x + plyrInput.width, plyrInput.y);
-    // nameEnter.mousePressed(saveUsername);
+    nameEnter.position(pinput.x + pinput.width, pinput.y);
+    nameEnter.mousePressed(takeInput);
 
     for (let i = 0; i < bricks.length; i++) {
         if (bricks[i] === 1) {
@@ -166,8 +166,9 @@ class Ball {
     }
 }
 
-function saveUsername() {
-    scores.write([plyrInput]);
+function takeInput() {
+    plyrInput = pinput.value();
+    pinput.value('');
 }
 
 let ball = new Ball();
@@ -344,7 +345,7 @@ function gameEnd() {
     textAlign(RIGHT);
     text(game.score, 500, 310 + score1Pos * 30);
     textAlign(LEFT);
-    text("You", 100, 310 + score2Pos * 30);
+    text(plyrInput, 100, 310 + score2Pos * 30);
     textAlign(CENTER);
     textSize(17);
     text("Press 'r' to restart", 300, 580);
