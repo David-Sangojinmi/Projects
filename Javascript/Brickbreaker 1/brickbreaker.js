@@ -32,7 +32,11 @@ let paddle = {
 
 let bground;
 let bbFont;
-let highscores;
+let scores;
+let highScores;
+let plyrInput;
+let plyrName;
+let nameEnter;
 //let bbFont3;
 
 let bricks = [1, 1, 1, 1, 1, 1,
@@ -49,18 +53,25 @@ let game = {
 function preload() {
     bground = loadImage("src/bg1.png");
     bbFont = loadImage("src/bbfont.png");
-    highscores = loadStrings('src/highScores.txt')
-    //bbFont1 = loadFont('dpComic..ttf');
-    //bbFont2 = loadFont('orangeKid.ttf');
-    //bbFont3 = loadFont('minecraftEvenings.ttf');
-    //bbFont3 = loadFont('minecraft-evenings.regular')
+    scores = loadStrings('src/highScores.txt');
+    //bbFont1 = loadFont('dpComic.ttf');
 }
 
 function setup() {
-    createCanvas(600, 700);
+    let canvas = createCanvas(600, 700);
+    canvas.position(10, 120);
     rectMode(CENTER);
     imageMode(CENTER);
     ellipseMode(CENTER);
+
+    // highScores = join(scores, '\n');
+    plyrName = createElement('p', 'Enter player name:');
+    plyrName.position(10, 820);
+    plyrInput = createInput();
+    plyrInput.position(150, 835);
+    nameEnter = createButton('Enter');
+    nameEnter.position(plyrInput.x + plyrInput.width, plyrInput.y);
+    // nameEnter.mousePressed(saveUsername);
 
     for (let i = 0; i < bricks.length; i++) {
         if (bricks[i] === 1) {
@@ -153,6 +164,10 @@ class Ball {
             this.yspd = this.yspd * random(-0.85, -1.15);
         }
     }
+}
+
+function saveUsername() {
+    scores.write([plyrInput]);
 }
 
 let ball = new Ball();
@@ -300,16 +315,30 @@ function gameEnd() {
     fill(134, 207, 19);
     textSize(30);
     textAlign(CENTER);
-    text("GAME OVER", 300, 300);
-    textSize(17);
-    text("Press 'r' to restart", 300, 400);
+    text("GAME OVER", 300, 170);
     /* Implement this: when the player dies, their total points is
     recorded in a text file along with possible their player name.
     At the end of the game there is a list of all the players and 
     their scores when they died. Save the scores in some sort of 
     text file and then show this text file in a nicer form on the
-    game end screen                                               */
-    console.log(highscores)
+    game end screen                                                 */
+    textAlign(LEFT);
+    textSize(20);
+    text("Highscores:", 100, 250);
+    textSize(17);
+    for (let i = 0; i < highscores.length; i++) {
+        if (i/2 != 0) {
+            textAlign(RIGHT);
+            text(scores[i], 500, 320);
+        } else {
+            textAlign(LEFT);
+            text(scores[i], 100, 320);
+        }
+        // text(highscores[i], 280, (340 + i*50));
+    }
+    textAlign(CENTER);
+    textSize(17);
+    text("Press 'r' to restart", 300, 580);
     
     // To restart the game
     if (keyIsPressed === true) {
