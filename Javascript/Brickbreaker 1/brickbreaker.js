@@ -317,12 +317,6 @@ function gameEnd() {
     textSize(30);
     textAlign(CENTER);
     text("GAME OVER", 300, 170);
-    /* Implement this: when the player dies, their total points is
-    recorded in a text file along with possible their player name.
-    At the end of the game there is a list of all the players and 
-    their scores when they died. Save the scores in some sort of 
-    text file and then show this text file in a nicer form on the
-    game end screen                                                 */
     textAlign(LEFT);
     textSize(20);
     text("Highscores:", 100, 250);
@@ -340,7 +334,6 @@ function gameEnd() {
             text(scores[i], 500, 310 + score1Pos * 30);
             score1Pos++;
         }
-        // text(highscores[i], 280, (340 + i*50));
     }
     textAlign(RIGHT);
     text(game.score, 500, 310 + score1Pos * 30);
