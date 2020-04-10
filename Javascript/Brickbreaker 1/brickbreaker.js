@@ -331,16 +331,20 @@ function gameEnd() {
     for (let i = 0; i < scores.length; i++) {
         
         if (i % 2 == 0) {
-            textAlign(RIGHT);
-            text(scores[i], 500, 310 + score1Pos*30);
-            score1Pos++;
-        } else {
             textAlign(LEFT);
             text(scores[i], 100, 310 + score2Pos * 30);
             score2Pos++;
+        } else {
+            textAlign(RIGHT);
+            text(scores[i], 500, 310 + score1Pos * 30);
+            score1Pos++;
         }
         // text(highscores[i], 280, (340 + i*50));
     }
+    textAlign(RIGHT);
+    text(game.score, 500, 310 + score1Pos * 30);
+    textAlign(LEFT);
+    text("You", 100, 310 + score2Pos * 30);
     textAlign(CENTER);
     textSize(17);
     text("Press 'r' to restart", 300, 580);
