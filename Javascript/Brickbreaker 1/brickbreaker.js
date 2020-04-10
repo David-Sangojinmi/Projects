@@ -176,16 +176,7 @@ let ball = new Ball();
 function gameStart() {
     // Screen for the start of the game
     image(bground, 300, 350);
-    // noStroke();
-    // fill(61, 55, 138);
-    // rect(300, 350, 600, 700);
     image(bbFont, 300, 165, 338);
-    // textAlign(CENTER);
-    // textStyle(BOLD);
-    // textSize(50);
-    // fill(250);
-    // textFont(bbFont3);
-    // text("BRICKBREAKER", 300, 170);
 
     // Instructions
     textAlign(CENTER);
