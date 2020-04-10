@@ -6,9 +6,9 @@
 // (2) The direction and speed of the balls rebound should change based //
 // on where it collides with the paddle                                 //
 // (3) Maybe change dimensions of the brick (smaller) and the game      //
-// screen (wider & shorter)
-// (4) Implement levels and each level will have a different configur- //
-// ation of bricks
+// screen (wider & shorter)                                             //
+// (4) Implement levels and each level will have a different configur-  //
+// ation of bricks                                                      //
 
 let gameBegin = true;
 let gameActive = false;
