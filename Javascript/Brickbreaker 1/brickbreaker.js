@@ -32,6 +32,7 @@ let paddle = {
 
 let bground;
 let bbFont;
+let highscores;
 //let bbFont3;
 
 let bricks = [1, 1, 1, 1, 1, 1,
@@ -46,8 +47,9 @@ let game = {
 };
 
 function preload() {
-    bground = loadImage("bg1.png");
-    bbFont = loadImage("bbfont.png")
+    bground = loadImage("src/bg1.png");
+    bbFont = loadImage("src/bbfont.png");
+    highscores = loadStrings('src/highScores.txt')
     //bbFont1 = loadFont('dpComic..ttf');
     //bbFont2 = loadFont('orangeKid.ttf');
     //bbFont3 = loadFont('minecraftEvenings.ttf');
@@ -307,7 +309,8 @@ function gameEnd() {
     their scores when they died. Save the scores in some sort of 
     text file and then show this text file in a nicer form on the
     game end screen                                               */
-
+    console.log(highscores)
+    
     // To restart the game
     if (keyIsPressed === true) {
         if (key === "r") {
