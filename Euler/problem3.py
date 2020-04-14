@@ -1,3 +1,5 @@
+# What: What is the largest prime factor of the number 600851475143 ?
+
 tst = int(input('Number to test: '))
 gdnum = []
 
