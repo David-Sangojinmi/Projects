@@ -18,10 +18,13 @@ function love.load()
     -- Makes it look pixelated
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    love.window.setTitle('Pong')
+
     math.randomseed(os.time())
 
     -- Retro looking font
     smallFont = love.graphics.newFont('font.ttf', 8)
+    scoreFont = love.graphics.newFont('font.ttf', 32)
 
     -- Set the active font to the smallFont object
     love.graphics.setFont(smallFont)
@@ -31,6 +34,10 @@ function love.load()
         resizable = false,
         vsync = true
     })
+
+    -- Player scores
+    player1Score = 0
+    player2Score = 0
 
     -- Initialise our player paddles
     player1 = Paddle(10, 30, 5, 20)
@@ -49,6 +56,8 @@ function love.update(dt)
         player1.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('s') then
         player1.dy = PADDLE_SPEED
+    else
+        player1.dy = 0
     end
 
     -- Player 2 movement
@@ -56,11 +65,44 @@ function love.update(dt)
         player2.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('down') then
         player2.dy = PADDLE_SPEED
+    else
+        player2.dy = 0
     end
 
     -- Ball movement
     if gameState == 'play' then
-        ball:update(dt)
+        -- ball:update(dt)
+        if ball:collides(player1) then
+            ball.dx = -ball.dx * 1.03
+            ball.x = player1.x + 5
+            
+            if ball.dy < 0 then
+                ball.dy = -math.random(10, 150)
+            else
+                ball.dy = math.random(10, 150)
+            end
+        end
+
+        if ball:collides(player2) then
+            ball.dx = -ball.dx * 1.03
+            ball.x = player2.x - 4
+
+            if ball.dy < 0  then
+                ball.dy = -math.random(10, 150)
+            else
+                ball.dy = math.random(10, 150)
+            end
+        end
+
+        if ball.y <= 0  then
+            ball.y = 0
+            ball.dy = -ball.dy
+        end
+
+        if ball.y >= VIRTUAL_HEIGHT - 4 then
+            ball.y = VIRTUAL_HEIGHT - 4
+            ball.dy = -ball.dy
+        end
     end
 
     player1:update(dt)
@@ -70,7 +112,6 @@ end
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
-
     elseif key == 'enter' or key == 'return' then
         if gameState == 'start' then
             gameState = 'play'
@@ -108,8 +149,14 @@ function love.draw()
     -- Render the ball
     ball:render()
     
+    displayFPS()
+
     -- End rendering at virtual resolution
     push:apply('end')
-
 end
 
+function displayFPS()
+    love.graphics.setFont(smallFont)
+    love.graphics.setColor(0, 1, 0, 1)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
+end
