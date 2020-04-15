@@ -25,6 +25,7 @@ function love.load()
 
     -- Retro looking font
     smallFont = love.graphics.newFont('font.ttf', 8)
+    largeFont = love.graphics.newFont('font.ttf', 16)
     scoreFont = love.graphics.newFont('font.ttf', 32)
 
     -- Set the active font to the smallFont object
@@ -101,15 +102,27 @@ function love.update(dt)
     if ball.x < 0 then
         servingPlayer = 1
         player2Score = player2Score + 1
-        ball:reset()
-        gameState = 'serve'
+
+        if player2Score == 10 then
+            winningPlayer = 2
+            gameState = 'done'
+        else
+            gameState = 'serve'
+            ball:reset()
+        end
     end
 
-    if ball > VIRTUAL_WIDTH then
+    if ball.x > VIRTUAL_WIDTH then
         servingPlayer = 2
         player1Score = player1Score + 1
-        ball:reset()
-        gameState = 'serve'
+
+        if player1Score == 10 then
+            winningPlayer = 1
+            gameState = 'done'
+        else
+            gameState = 'serve'
+            ball:reset()
+        end
     end
 
     -- Player 1 movement
@@ -130,6 +143,11 @@ function love.update(dt)
         player2.dy = 0
     end
 
+    -- Update the ball based on its dx and dy if its in play state
+    if gameState == 'play' then
+        ball:update(dt)
+    end
+
     player1:update(dt)
     player2:update(dt)
 end
@@ -143,6 +161,18 @@ function love.keypressed(key)
             gameState = 'serve'
         elseif gameState == 'serve' then
             gameState = 'play'
+        elseif gameState == 'done' then
+            gameState = 'serve'
+            ball:reset()
+
+            player1Score = 0
+            player2score = 0
+
+            if winningPlayer == 1 then
+                servingPlayer = 2
+            else
+                servingPlayer = 1
+            end
         end
     end
 end
@@ -166,6 +196,14 @@ function love.draw()
         love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'play' then
         -- Don't display anything when playing
+        
+    elseif gameState == 'done' then
+
+        love.graphics.setFont(largeFont)
+        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!', 0, 10, VIRTUAL_WIDTH, 'center')
+        
+        love.graphics.setFont(smallFont)
+        love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
     end
 
     -- Render the paddles and the ball
@@ -187,7 +225,7 @@ function displayFPS()
 end
 
 function displayScore()
-    love.graphics.setFont(scoreFont)
-    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRUTAL_HEIGHT / 3)
+    love.graphics.setFont(scoreFont)  -- Switching font to the score one before printing
+    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
     love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 end
