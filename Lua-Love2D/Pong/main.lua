@@ -40,7 +40,7 @@ function love.load()
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
-        resizable = false,
+        resizable = true,  -- Set this to false if you don't want resize
         vsync = true
     })
 
@@ -60,6 +60,10 @@ function love.load()
 
     gameState = 'start'
 
+end
+
+function love.resize(w, h)
+    push:resize(w, h)
 end
 
 function love.update(dt)
@@ -173,7 +177,7 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     elseif key == 'enter' or key == 'return' then
-        
+
         if gameState == 'start' then
             gameState = 'serve'
         elseif gameState == 'serve' then
