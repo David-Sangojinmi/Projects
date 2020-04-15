@@ -28,6 +28,13 @@ function love.load()
     largeFont = love.graphics.newFont('font.ttf', 16)
     scoreFont = love.graphics.newFont('font.ttf', 32)
 
+    -- Setting up sounds to use in game
+    sounds = {
+        ['paddle_hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
+        ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
+        ['wall_hit'] = love.audio.newSource('sounds/wall_hit.wav', 'static')
+    }
+
     -- Set the active font to the smallFont object
     love.graphics.setFont(smallFont)
 
@@ -65,6 +72,7 @@ function love.update(dt)
             ball.dx = -math.random(140, 200)
         end
     elseif gameState == 'play' then
+
         if ball:collides(player1) then
             ball.dx = -ball.dx * 1.03
             ball.x = player1.x + 5
@@ -74,6 +82,8 @@ function love.update(dt)
             else
                 ball.dy = math.random(10, 150)
             end
+
+            sounds['paddle_hit']:play()
         end
 
         if ball:collides(player2) then
@@ -85,43 +95,49 @@ function love.update(dt)
             else
                 ball.dy = math.random(10, 150)
             end
+
+            sounds['paddle_hit']:play()
         end
 
         if ball.y <= 0  then
             ball.y = 0
             ball.dy = -ball.dy
+            sounds['wall_hit']:play() 
         end
 
         if ball.y >= VIRTUAL_HEIGHT - 4 then
             ball.y = VIRTUAL_HEIGHT - 4
             ball.dy = -ball.dy
+            sounds['wall_hit']:play()
         end
-    end
 
-    -- Scoring logic
-    if ball.x < 0 then
-        servingPlayer = 1
-        player2Score = player2Score + 1
+        -- Scoring logic
+        if ball.x < 0 then
+            servingPlayer = 1
+            player2Score = player2Score + 1
+            sounds['score']:play()
 
-        if player2Score == 10 then
-            winningPlayer = 2
-            gameState = 'done'
-        else
-            gameState = 'serve'
-            ball:reset()
+            if player2Score == 10 then
+                winningPlayer = 2
+                gameState = 'done'
+            else
+                gameState = 'serve'
+                ball:reset()
+            end
         end
-    end
 
-    if ball.x > VIRTUAL_WIDTH then
-        servingPlayer = 2
-        player1Score = player1Score + 1
+        if ball.x > VIRTUAL_WIDTH then
+            servingPlayer = 2
+            player1Score = player1Score + 1
+            sounds['score']:play()
 
-        if player1Score == 10 then
-            winningPlayer = 1
-            gameState = 'done'
-        else
-            gameState = 'serve'
-            ball:reset()
+            if player1Score == 10 then
+                winningPlayer = 1
+                gameState = 'done'
+            else
+                gameState = 'serve'
+                ball:reset()
+            end
         end
     end
 
@@ -157,6 +173,7 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     elseif key == 'enter' or key == 'return' then
+        
         if gameState == 'start' then
             gameState = 'serve'
         elseif gameState == 'serve' then
@@ -196,7 +213,7 @@ function love.draw()
         love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'play' then
         -- Don't display anything when playing
-        
+
     elseif gameState == 'done' then
 
         love.graphics.setFont(largeFont)
