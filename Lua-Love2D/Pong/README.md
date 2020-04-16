@@ -1,6 +1,8 @@
 # Pong Game
 ### Made with Lua and the LOVE2D game engine
 
+Left paddle controls: "w" and "s" key for up and down. Right paddle controls: "up" and "down" key for up and down. Press "Enter" when instructed.
+
 In order to make this game playable on your computer you have to install the LOVE2D game engine. This can be found [here](https://love2d.org/) and a getting started guide [here](https://love2d.org/wiki/Getting_Started). Then follow **option 1** or **option 2.**
 
 #### Option 1
