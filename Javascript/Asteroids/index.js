@@ -1,3 +1,8 @@
+/* 
+Video: https://www.youtube.com/watch?v=H9CSWMxJx84&list=PLWKjhJtqVAbmqFs83T4W-FZQ9kK983tZC&index=21
+Time: 32:35
+*/
+
 const FPS = 30; // Frames per second
 const FRICTION = 0.7; // Friction coefficient
 const SHIP_SIZE = 30;
@@ -65,6 +70,30 @@ function update() {
     if (ship.thrusting) {
         ship.thrust.x += SHIP_THRUST * Math.cos(ship.a) / FPS;
         ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
+
+        // Ship thruster
+        ctx.fillStyle = "red";
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = SHIP_SIZE / 10;
+        ctx.beginPath();
+        ctx.moveTo(
+            // Rear left
+            ship.x - ship.r * ((2 / 3) * Math.cos(ship.a) + 0.5 * Math.sin(ship.a)),
+            ship.y + ship.r * ((2 / 3) * Math.sin(ship.a) - 0.5 * Math.cos(ship.a))
+        );
+        ctx.lineTo(
+            // Behind the ship
+            ship.x - ship.r * (6 / 3) * Math.cos(ship.a),
+            ship.y + ship.r * (6 / 3) * Math.sin(ship.a)
+        );
+        ctx.lineTo(
+            // Rear left
+            ship.x - ship.r * ((2 / 3) * Math.cos(ship.a) - 0.5 * Math.sin(ship.a)),
+            ship.y + ship.r * ((2 / 3) * Math.sin(ship.a) + 0.5 * Math.cos(ship.a))
+        );
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
     } else {
         ship.thrust.x -= FRICTION * ship.thrust.x / FPS;
         ship.thrust.y -= FRICTION * ship.thrust.y / FPS;
@@ -95,6 +124,18 @@ function update() {
     // Move the ship
     ship.x += ship.thrust.x;
     ship.y += ship.thrust.y;
+
+    // Handle ship moving of screen edge
+    if (ship.x < 0 - ship.r) {
+        ship.x = canv.width + ship.r;
+    } else if (ship.x > canv.width + ship.r) {
+        ship.x = 0 - ship.r;
+    }
+    if (ship.y < 0 - ship.r) {
+        ship.y = canv.height + ship.r;
+    } else if (ship.y > canv.height + ship.r) {
+        ship.y = 0 - ship.r;
+    }
 
     // Center dot
     ctx.fillStyle = "red";
