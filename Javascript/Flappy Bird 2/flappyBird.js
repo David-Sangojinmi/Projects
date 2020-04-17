@@ -13,19 +13,30 @@ var bg = new Image();
 var fg = new Image();
 var pipeNorth = new Image();
 var pipeSouth = new Image();
-
+var playButton = new Image();
 bird.src = "images/bird.png";
 bg.src = "images/bg.png";
 fg.src = "images/fg.png";
 pipeNorth.src = "images/pipeNorth.png";
 pipeSouth.src = "images/pipeSouth.png";
+playButton.src = "images/plyBtn.png";
 
 // Load audio
 var fly = new Audio();
-var scor = new Audio();
-
+var score = new Audio();
 fly.src = "sounds/fly.mp3";
-scor.src = "sounds/score.mp3";
+score.src = "sounds/score.mp3";
+
+// Load font
+const FONT_NAME = 'Flappy Birdy';
+function renderText(textParam, textX, textY) {
+    ctx.font = '20px "$Flappy Birdy"';
+    ctx.textAlign = "center";
+    ctx.fillText(textParam, textX, textY);
+}
+
+// var gameFont = new FontFace()
+// gameFont.src = "fonts/FlappybirdyRegular-KaBW.ttf";
 
 // Important variables
 var gap = 85;
@@ -33,7 +44,7 @@ var constant;
 var bX = 10;
 var bY = 150;
 var gravity = 1.5;
-var score = 0;
+var bPoints = 0;
 
 var gameBegin = true;
 var gameMiddle = false;
@@ -49,9 +60,17 @@ pipe[0] = {
 
 function gameStart() {
     // Game title and instructions
-    ctx.drawImage(bg, 0, 0);
-    ctx.fillStyle = "#e8db84";
-    ctx.fillRect(48, 156, 192, 200);
+    function drawStart() {
+        ctx.drawImage(bg, 0, 0);
+        ctx.drawImage(playButton, 0, 0);
+        ctx.drawImage(bird, cvs.width / 2, cvs.height / 2 - 30);
+        //document.fonts.load('20pt "Flappy Bird"').then(renderText("Flappy Bird", 144, 389));
+        // ctx.font = "30px gameFont";
+        // ctx.textAlign = "center";
+        // ctx.fillText("FlappyBird", x, y);
+
+        requestAnimationFrame(drawStart);
+    }
 
     document.addEventListener("keypress", function onEvent(moveToStart) {
         if (moveToStart.key === "p") {
@@ -61,6 +80,20 @@ function gameStart() {
             return false;
         }
     });
+
+    drawStart();
+}
+
+function playReset() {
+    bX = 10;
+    bY = 150;
+    bPoints = 0;
+    for (var i = 0; i < pipe.length; i++) {
+        ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
+        ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
+
+        pipe[i].x--;
+    }
 }
 
 function gamePlay() {
@@ -73,7 +106,7 @@ function gamePlay() {
     }
 
     // Drawing all the objects and interactions
-    function draw() {
+    function drawMiddle() {
         ctx.drawImage(bg, 0, 0); // Draw background
 
         for (var i = 0; i < pipe.length; i++) {
@@ -92,7 +125,7 @@ function gamePlay() {
                 });
             }
 
-            // Detect if there is a collision
+            // Detect if there is a collision with pipes
             if (
                 (bX + bird.width >= pipe[i].x &&
                     bX <= pipe[i].x + pipeNorth.width &&
@@ -100,43 +133,56 @@ function gamePlay() {
                         bY + bird.height >= pipe[i].y + constant)) ||
                 bY + bird.height >= cvs.height - fg.height
             ) {
-                location.reload();
+                playReset();
+            }
+            // Detect collision with ground
+            if (bX + bird.with >= bg.x) {
+                playReset();
             }
 
             if (pipe[i].x == 5) {
-                score++;
-                scor.play();
+                bPoints++;
+                score.play();
             }
         }
 
         ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
         ctx.drawImage(bird, bX, bY); // Draw bird
+        ctx.fillStyle = "#fff";
+        ctx.font = "40px sans-serif";
+        ctx.fillText(bPoints, 130, 40);
 
         bY += gravity;
 
-        ctx.fillStyle = "#000";
-        ctx.font = "20px Verdana";
-        ctx.fillText("Score: " + score, 10, cvs, cvs.height - 20);
         // console.log(score);
 
-        requestAnimationFrame(draw);
+        requestAnimationFrame(drawMiddle);
     }
 
-    draw();
+    drawMiddle();
 }
 
 function gameEnd() {
     // End game screen, score and restart option
+    function drawEnd() {
+        ctx.drawImage(bg, 0, 0);
+        ctx.fillStyle = "#e8db84";
+        ctx.fillRect(48, 156, 192, 200);
+        // End text
+        requestAnimationFrame(drawEnd);
+    }
+    drawEnd();
 }
 
 function gameLoop() {
     if (gameBegin === true) {
-        gameStart;
+        gameStart();
     } else if (gameMiddle === true) {
-        gamePlay;
+        gamePlay();
     } else if (gameEnding === true) {
-        gameEnd;
+        gameEnd();
     }
 }
 
 gameLoop();
+// gamePlay();
