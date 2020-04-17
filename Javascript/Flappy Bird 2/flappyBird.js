@@ -29,61 +29,114 @@ scor.src = "sounds/score.mp3";
 
 // Important variables
 var gap = 85;
-var constant  = pipeNorth.height + gap;
-
+var constant;
 var bX = 10;
 var bY = 150;
-var gravity = 1;
+var gravity = 1.5;
+var score = 0;
 
-// When key is down
-document.addEventListener("keydown", moveUp);
-
-function moveUp() {
-    bY -= 20;
-}
+var gameBegin = true;
+var gameMiddle = false;
+var gameEnding = false;
 
 // Generating pipes
 var pipe = [];
 
 pipe[0] = {
     x: cvs.width,
-    y: 0
+    y: 0,
+};
+
+function gameStart() {
+    // Game title and instructions
+    ctx.drawImage(bg, 0, 0);
+    ctx.fillStyle = "#e8db84";
+    ctx.fillRect(48, 156, 192, 200);
+
+    document.addEventListener("keypress", function onEvent(moveToStart) {
+        if (moveToStart.key === "p") {
+            gameBegin = false;
+            gameMiddle = true;
+        } else {
+            return false;
+        }
+    });
 }
 
-function draw() {
-    ctx.drawImage(bg, 0, 0); // Draw background
+function gamePlay() {
+    // When key is down
+    document.addEventListener("keydown", moveUp);
 
-    for (var i = 0; i < pipe.length; i++) {
-        constant = pipeNorth.height + gap;
-        ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
-        ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
-        
-        pipe[i].x--;
-
-        if (pipe[i].x == 125) {
-            pipe.push({
-                x: cvs.width,
-                y: Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height,
-            });
-        }
-
-        // Detect if there is a collision
-        if () {
-            location.reload();
-        }
-
-        if () {
-            score++;
-            scor.play();
-        }
+    function moveUp() {
+        bY -= 25;
+        fly.play();
     }
 
-    ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
-    ctx.drawImage(bird, bX, bY); // Draw bird
+    // Drawing all the objects and interactions
+    function draw() {
+        ctx.drawImage(bg, 0, 0); // Draw background
 
-    bY += gravity;
+        for (var i = 0; i < pipe.length; i++) {
+            constant = pipeNorth.height + gap;
+            ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
+            ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
 
-    requestAnimationFrame(draw);
+            pipe[i].x--;
+
+            if (pipe[i].x === 125) {
+                pipe.push({
+                    x: cvs.width,
+                    y:
+                        Math.floor(Math.random() * pipeNorth.height) -
+                        pipeNorth.height,
+                });
+            }
+
+            // Detect if there is a collision
+            if (
+                (bX + bird.width >= pipe[i].x &&
+                    bX <= pipe[i].x + pipeNorth.width &&
+                    (bY <= pipe[i].y + pipeNorth.height ||
+                        bY + bird.height >= pipe[i].y + constant)) ||
+                bY + bird.height >= cvs.height - fg.height
+            ) {
+                location.reload();
+            }
+
+            if (pipe[i].x == 5) {
+                score++;
+                scor.play();
+            }
+        }
+
+        ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
+        ctx.drawImage(bird, bX, bY); // Draw bird
+
+        bY += gravity;
+
+        ctx.fillStyle = "#000";
+        ctx.font = "20px Verdana";
+        ctx.fillText("Score: " + score, 10, cvs, cvs.height - 20);
+        // console.log(score);
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
 }
 
-draw();
+function gameEnd() {
+    // End game screen, score and restart option
+}
+
+function gameLoop() {
+    if (gameBegin === true) {
+        gameStart;
+    } else if (gameMiddle === true) {
+        gamePlay;
+    } else if (gameEnding === true) {
+        gameEnd;
+    }
+}
+
+gameLoop();
