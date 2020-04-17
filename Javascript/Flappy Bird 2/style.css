@@ -1,0 +1,14 @@
+/* canvas {
+  border: 1px solid black;
+} */
+
+body {
+	font-family: sans-serif;
+}
+
+@font-face {
+  font-family: 'Flappy Birdy';
+  font-style: normal;
+  font-weight: 400;
+  src: local('fonts/FlappybirdyRegular-KaBW.ttf'), format('ttf');
+}
