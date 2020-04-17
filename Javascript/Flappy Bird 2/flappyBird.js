@@ -49,7 +49,7 @@ pipe[0] = {
 
 // Load font
 async function loadFonts() {
-    var gameFont = new FontFace('myfont', 'url(fonts/Flappybirdy.tff');
+    var gameFont = new FontFace('flappyFont', 'url(fonts/Flappybirdy.tff)');
     await gameFont.load();
 }
 
@@ -59,29 +59,39 @@ function gameStart() {
         ctx.drawImage(bg, 0, 0);
         ctx.drawImage(fg, 0, cvs.height - fg.height);
         ctx.drawImage(playButton, 90, cvs.height - fg.height - 50, 100, 50);
-        ctx.drawImage(
-            bird,
-            cvs.width / 2 - bird.width / 2,
-            cvs.height / 2 + bird.height
-        );
-        // document.font.load('20pt "Flappy Bird"'); // .then(
-        // renderText("Flappy Bird", 144, 389);
-        ctx.font = '30px "gameFont"';
-        ctx.fillText("FlappyBird", 50, 50);
-        // ctx.textAlign = "center";
-        // ctx.fillText("FlappyBird", x, y);
+        ctx.drawImage(bird, cvs.width / 2 - bird.width / 2, cvs.height - fg.height - bird.height - 120);
+        // ctx.font = "30px flappyFont";
+        // ctx.fillText("FlappyBird", 50, 50);
+        // gameFont.load().then(function() {
+        //     ctx.fillText("FlappyBird", 50, 50);
+        // })
+        ctx.font = "40px impact"; // Candara, Roboto, Courier, Arial
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 4;
+        ctx.strokeText("FlappyBird", 55, 180);
+        ctx.fillStyle = "white";
+        ctx.fillText("FlappyBird", 55, 180);
 
         requestAnimationFrame(drawStart);
     }
 
-    document.addEventListener("keypress", function onEvent(moveToStart) {
-        if (moveToStart.key === "p") {
+    document.addEventListener("mousedown", moveToStart);
+    function moveToStart() {
+        if () {
             gameBegin = false;
             gameMiddle = true;
         } else {
             return false;
         }
-    });
+    }
+    // document.addEventListener("keypress", function onEvent(moveToStart) {
+    //     if (moveToStart.key === "p") {
+    //         gameBegin = false;
+    //         gameMiddle = true;
+    //     } else {
+    //         return false;
+    //     }
+    // });
 
     drawStart();
 }
