@@ -19,24 +19,13 @@ bg.src = "images/bg.png";
 fg.src = "images/fg.png";
 pipeNorth.src = "images/pipeNorth.png";
 pipeSouth.src = "images/pipeSouth.png";
-playButton.src = "images/plyBtn.png";
+playButton.src = "images/playBtn.png";
 
 // Load audio
 var fly = new Audio();
 var score = new Audio();
 fly.src = "sounds/fly.mp3";
 score.src = "sounds/score.mp3";
-
-// Load font
-const FONT_NAME = 'Flappy Birdy';
-function renderText(textParam, textX, textY) {
-    ctx.font = '20px "$Flappy Birdy"';
-    ctx.textAlign = "center";
-    ctx.fillText(textParam, textX, textY);
-}
-
-// var gameFont = new FontFace()
-// gameFont.src = "fonts/FlappybirdyRegular-KaBW.ttf";
 
 // Important variables
 var gap = 85;
@@ -58,14 +47,27 @@ pipe[0] = {
     y: 0,
 };
 
+// Load font
+async function loadFonts() {
+    var gameFont = new FontFace('myfont', 'url(fonts/Flappybirdy.tff');
+    await gameFont.load();
+}
+
 function gameStart() {
     // Game title and instructions
     function drawStart() {
         ctx.drawImage(bg, 0, 0);
-        ctx.drawImage(playButton, 0, 0);
-        ctx.drawImage(bird, cvs.width / 2, cvs.height / 2 - 30);
-        //document.fonts.load('20pt "Flappy Bird"').then(renderText("Flappy Bird", 144, 389));
-        // ctx.font = "30px gameFont";
+        ctx.drawImage(fg, 0, cvs.height - fg.height);
+        ctx.drawImage(playButton, 90, cvs.height - fg.height - 50, 100, 50);
+        ctx.drawImage(
+            bird,
+            cvs.width / 2 - bird.width / 2,
+            cvs.height / 2 + bird.height
+        );
+        // document.font.load('20pt "Flappy Bird"'); // .then(
+        // renderText("Flappy Bird", 144, 389);
+        ctx.font = '30px "gameFont"';
+        ctx.fillText("FlappyBird", 50, 50);
         // ctx.textAlign = "center";
         // ctx.fillText("FlappyBird", x, y);
 
