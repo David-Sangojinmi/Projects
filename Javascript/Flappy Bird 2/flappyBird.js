@@ -1,7 +1,7 @@
 /*
-Video: https://www.youtube.com/watch?v=L07i4g-zhDA&list=PLt4757glfbhHkfz7dqojMbnBdgUnFih4B&index=5&t=26s
-Time of video: 23:26
 Code: https://github.com/CodeExplainedRepo/FlappyBird-JavaScript/blob/master/flappyBird.js
+TO-DO: Make it so when you click the play button or press a key it moves
+to game play and doesn;t just get stuck on the start screen
 */
 
 var cvs = document.getElementById("canvas");
@@ -48,10 +48,10 @@ pipe[0] = {
 };
 
 // Load font
-async function loadFonts() {
-    var gameFont = new FontFace('flappyFont', 'url(fonts/Flappybirdy.tff)');
-    await gameFont.load();
-}
+// async function loadFonts() {
+//     var gameFont = new FontFace("flappyFont", "url(fonts/Flappybirdy.tff)");
+//     await gameFont.load();
+// }
 
 function gameStart() {
     // Game title and instructions
@@ -59,7 +59,11 @@ function gameStart() {
         ctx.drawImage(bg, 0, 0);
         ctx.drawImage(fg, 0, cvs.height - fg.height);
         ctx.drawImage(playButton, 90, cvs.height - fg.height - 50, 100, 50);
-        ctx.drawImage(bird, cvs.width / 2 - bird.width / 2, cvs.height - fg.height - bird.height - 120);
+        ctx.drawImage(
+            bird,
+            cvs.width / 2 - bird.width / 2,
+            cvs.height - fg.height - bird.height - 120
+        );
         // ctx.font = "30px flappyFont";
         // ctx.fillText("FlappyBird", 50, 50);
         // gameFont.load().then(function() {
@@ -74,26 +78,18 @@ function gameStart() {
 
         requestAnimationFrame(drawStart);
     }
-
-    document.addEventListener("mousedown", moveToStart);
-    function moveToStart() {
-        if () {
-            gameBegin = false;
-            gameMiddle = true;
-        } else {
-            return false;
-        }
-    }
-    // document.addEventListener("keypress", function onEvent(moveToStart) {
-    //     if (moveToStart.key === "p") {
-    //         gameBegin = false;
-    //         gameMiddle = true;
-    //     } else {
-    //         return false;
-    //     }
-    // });
-
     drawStart();
+
+    document.addEventListener("keydown", moveNext);
+
+    function moveNext() {
+        gameBegin = false;
+        //ctx.clearRect(0, 0, 288, 512);
+        gameMiddle = true;
+        //gamePlay();
+        gameEnding = false;
+        gameLoop();
+    }
 }
 
 function playReset() {
@@ -109,6 +105,7 @@ function playReset() {
 }
 
 function gamePlay() {
+    gameBegin = false;
     // When key is down
     document.addEventListener("keydown", moveUp);
 
@@ -117,8 +114,8 @@ function gamePlay() {
         fly.play();
     }
 
-    // Drawing all the objects and interactions
     function drawMiddle() {
+        // Drawing all the objects and interactions
         ctx.drawImage(bg, 0, 0); // Draw background
 
         for (var i = 0; i < pipe.length; i++) {
@@ -157,21 +154,19 @@ function gamePlay() {
                 score.play();
             }
         }
-
-        ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
-        ctx.drawImage(bird, bX, bY); // Draw bird
-        ctx.fillStyle = "#fff";
-        ctx.font = "40px sans-serif";
-        ctx.fillText(bPoints, 130, 40);
-
-        bY += gravity;
-
-        // console.log(score);
-
-        requestAnimationFrame(drawMiddle);
     }
 
-    drawMiddle();
+    ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
+    ctx.drawImage(bird, bX, bY); // Draw bird
+    ctx.fillStyle = "#fff";
+    ctx.font = "40px sans-serif";
+    ctx.fillText(bPoints, 130, 40);
+
+    bY += gravity;
+
+    // console.log(score);
+
+    requestAnimationFrame(drawMiddle);
 }
 
 function gameEnd() {
