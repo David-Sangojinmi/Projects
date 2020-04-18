@@ -1,48 +1,30 @@
-var sprite = {
-    x: 50,
-    y: 50,
-    xspeed: 2,
-    yspeed: 1,
-    points: 0,
-    width: 25,
-    height: 55
-};
 
-let img;
+var cvs = document.getElementById("gameScreen");
+var ctx = cvs.getContext("2d");
 
-function preload() {
-    img = loadImage("sprite.png");
+// Load images
+var background = new Image();
+background.src = "images/bg2.jpg";
+
+// Load audio
+// var jumpS = new Audio();
+// jumpS.src = "sounds/jump.mp3";
+
+// Important variables
+var GAME_WIDTH = 800;
+var GAME_HEIGHT = 600;
+var plyr = {
+    posX: 0,
+    posY: 0,
+    dX: 0,
+    dY: 0,
+    health: 50
 }
 
-function setup() {
-    createCanvas(900, 390);
-    rectMode(CORNER);
-    image(img, sprite.x, sprite.y, sprite.width, sprite.height);
-}
-
+// Draw the environment
 function draw() {
-    background(245);
-    fill(0);
-    noStroke();
-    rect(1, 330, 899, 389);
+    ctx.drawImage(background, 0, 0);
 
-    image(img, sprite.x, sprite.y, sprite.width, sprite.height);
-    spriteMove();
+    requestAnimationFrame(draw);
 }
-
-function spriteMove() {
-    //Keyboard controls
-    if (keyIsPressed === true && keyCode === RIGHT_ARROW) {
-        sprite.x += sprite.xspeed;
-    }
-    if (keyIsPressed === true && keyCode === LEFT_ARROW) {
-        sprite.x -= sprite.xspeed;
-    }
-    
-    // Edge detection
-    if (sprite.y >= 274) {
-        sprite.y += 0;
-    } else {
-        sprite.y += sprite.yspeed;
-    }
-}
+draw();
