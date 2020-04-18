@@ -64,11 +64,6 @@ function gameStart() {
             cvs.width / 2 - bird.width / 2,
             cvs.height - fg.height - bird.height - 120
         );
-        // ctx.font = "30px flappyFont";
-        // ctx.fillText("FlappyBird", 50, 50);
-        // gameFont.load().then(function() {
-        //     ctx.fillText("FlappyBird", 50, 50);
-        // })
         ctx.font = "40px impact"; // Candara, Roboto, Courier, Arial
         ctx.strokeStyle = "black";
         ctx.lineWidth = 4;
@@ -81,39 +76,24 @@ function gameStart() {
     drawStart();
 
     document.addEventListener("keydown", moveNext);
-
     function moveNext() {
         gameBegin = false;
-        //ctx.clearRect(0, 0, 288, 512);
-        gameMiddle = true;
-        //gamePlay();
-        gameEnding = false;
-        gameLoop();
+        gamePlay();
     }
 }
 
 function playReset() {
-    bX = 10;
-    bY = 150;
-    bPoints = 0;
-    for (var i = 0; i < pipe.length; i++) {
-        ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
-        ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
-
-        pipe[i].x--;
-    }
+    // bX = 10;
+    // bY = 150;
+    // bPoints = 0;
+    gameMiddle = false;
+    gameEnding = true;
+    /* 
+    Reset the position of the pipes
+    */
 }
 
 function gamePlay() {
-    gameBegin = false;
-    // When key is down
-    document.addEventListener("keydown", moveUp);
-
-    function moveUp() {
-        bY -= 25;
-        fly.play();
-    }
-
     function drawMiddle() {
         // Drawing all the objects and interactions
         ctx.drawImage(bg, 0, 0); // Draw background
@@ -125,7 +105,7 @@ function gamePlay() {
 
             pipe[i].x--;
 
-            if (pipe[i].x === 125) {
+            if (pipe[i].x === 100) {
                 pipe.push({
                     x: cvs.width,
                     y:
@@ -154,19 +134,27 @@ function gamePlay() {
                 score.play();
             }
         }
+        ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
+        ctx.drawImage(bird, bX, bY); // Draw bird
+        ctx.font = "40px impact"; //    -
+        ctx.strokeStyle = "black"; //    -
+        ctx.lineWidth = 8; //   Draw
+        ctx.strokeText(bPoints, 130, 40); //  points
+        ctx.fillStyle = "#fff"; //    -
+        ctx.fillText(bPoints, 130, 40); //    -
+        bY += gravity; // Gravity keeping the bird falling
+
+        requestAnimationFrame(drawMiddle);
     }
+    drawMiddle();
 
-    ctx.drawImage(fg, 0, cvs.height - fg.height); // Foreground
-    ctx.drawImage(bird, bX, bY); // Draw bird
-    ctx.fillStyle = "#fff";
-    ctx.font = "40px sans-serif";
-    ctx.fillText(bPoints, 130, 40);
+    // When key is down
+    document.addEventListener("keydown", moveUp);
 
-    bY += gravity;
-
-    // console.log(score);
-
-    requestAnimationFrame(drawMiddle);
+    function moveUp() {
+        bY -= 25;
+        fly.play();
+    }
 }
 
 function gameEnd() {
@@ -181,15 +169,15 @@ function gameEnd() {
     drawEnd();
 }
 
-function gameLoop() {
-    if (gameBegin === true) {
+function gameLoop(p1, p2, p3) {
+    if (p1 === true) {
         gameStart();
-    } else if (gameMiddle === true) {
+    } else if (p2 === true) {
         gamePlay();
-    } else if (gameEnding === true) {
+    } else if (p3 === true) {
         gameEnd();
     }
 }
 
-gameLoop();
+gameLoop(gameBegin, gameMiddle, gameEnding);
 // gamePlay();
