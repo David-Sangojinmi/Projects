@@ -1,8 +1,6 @@
 /*
 Code: https://github.com/CodeExplainedRepo/FlappyBird-JavaScript/blob/master/flappyBird.js
-TO-DO: Make it so when you click the play button it moves to game play and
-doesn't just get stuck on the start screen.
-Fix the transition from game play to end screen.
+TO-DO: Fix the transition from game play to end screen.
 */
 
 var cvs = document.getElementById("canvas");
