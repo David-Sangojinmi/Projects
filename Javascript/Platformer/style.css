@@ -1,7 +1,19 @@
 body {
 	font-family: sans-serif;
+	background-color: black;
+	color: #f7f7f7;
 }
 
-canvas #gameScreen {
-  border: 2px solid black;
+canvas#gameScreen {
+  border: 2px solid #474747;
+}
+
+a {
+	color: #ababab;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #474747;
 }
