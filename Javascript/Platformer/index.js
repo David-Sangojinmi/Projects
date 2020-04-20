@@ -71,7 +71,8 @@ function gameLoop(timestamp) {
             sprite.moveRight(ctx, deltaTime);
         }
         if (event.code === "ArrowUp" || event.code === "Space") {
-            sprite.jump(ctx, deltaTime);
+            // sprite.jump(ctx, deltaTime);
+            gStats.hp -= 1 / deltaTime;
         }
     });
 
