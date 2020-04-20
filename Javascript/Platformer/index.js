@@ -8,19 +8,21 @@ To-Do:
 var cvs = document.getElementById("gameScreen");
 var ctx = cvs.getContext("2d");
 
-// Load images
-var background = new Image();
-//              var player = new Image();
-background.src = "images/bg2.jpg";
-//              player.src = "images/sprite.jpg";
-
 // Importing the classes needed
 import Platform from "./platform.js";
 import Sprite from "./sprite.js";
-import gameScreens from "./gameStats.js";
+import gameScreens from "./gameScreens.js";
+import gameStats from "./gameStats.js";
 let pf = new Platform(GAME_WIDTH, GAME_HEIGHT);
-let sprite = new Sprite();
-let gScreen = new gameScreens();
+let sprite = new Sprite(GAME_WIDTH, GAME_HEIGHT);
+let gScreens = new gameScreens(GAME_WIDTH, GAME_HEIGHT);
+let gStats = new gameStats(GAME_WIDTH, GAME_HEIGHT);
+
+// Load all the images
+var background = new Image();
+//              var player = new Image();
+background.src = "images/bg6-2.jpg";
+//              player.src = "images/sprite.jpg";
 
 // Load audio
 // var jumpS = new Audio();
@@ -43,6 +45,8 @@ function gameLoop(timestamp) {
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     ctx.drawImage(background, 0, 0);
+    gStats.display(ctx);
+    gStats.update(deltaTime);
 
     for (var i = 0; i < platform.length; i++) {
         pf.update(deltaTime);
@@ -56,23 +60,22 @@ function gameLoop(timestamp) {
         }
     }
 
-    sprite.display(player, ctx);
-    sprite.display(deltaTime);
+    sprite.display(ctx, deltaTime);
+    sprite.update(deltaTime);
+    
     document.addEventListener("keydown", (event) => {
+        if (event.code === "ArrowLeft" || event.code === "KeyA") {
+            sprite.moveLeft(ctx, deltaTime);
+        }
+        if (event.code === "ArrowRight" || event.code === "KeyD") {
+            sprite.moveRight(ctx, deltaTime);
+        }
         if (event.code === "ArrowUp" || event.code === "Space") {
-            sprite.jump();
+            sprite.jump(ctx, deltaTime);
         }
     });
 
     requestAnimationFrame(gameLoop);
-
-    // document.addEventListener("keydown", (event) => {
-    //     if (event.code === "ArrowRight") {
-    //         moveLeft();
-    //     } else if (event.code === "ArrowLeft") {
-    //         moveRight();
-    //     }
-    // });
 }
 
 requestAnimationFrame(gameLoop);
