@@ -8,13 +8,19 @@ To-Do:
 var cvs = document.getElementById("gameScreen");
 var ctx = cvs.getContext("2d");
 
-// Platform
-// import Platform from "platform";
-// let pf = new Platform(GAME_WIDTH, GAME_HEIGHT);
-
 // Load images
 var background = new Image();
+//              var player = new Image();
 background.src = "images/bg2.jpg";
+//              player.src = "images/sprite.jpg";
+
+// Importing the classes needed
+import Platform from "./platform.js";
+import Sprite from "./sprite.js";
+import gameScreens from "./gameStats.js";
+let pf = new Platform(GAME_WIDTH, GAME_HEIGHT);
+let sprite = new Sprite();
+let gScreen = new gameScreens();
 
 // Load audio
 // var jumpS = new Audio();
@@ -24,14 +30,6 @@ background.src = "images/bg2.jpg";
 var GAME_WIDTH = 800;
 var GAME_HEIGHT = 600;
 var lastTime = 0;
-var plyr = {
-    posX: 0,
-    posY: 0,
-    dX: 0,
-    dY: 0,
-    health: 50
-}
-
 var platform = [];
 platform[0] = {
     x: 0,
@@ -44,38 +42,37 @@ function gameLoop(timestamp) {
     lastTime = timestamp;
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-
-    // pf.update(deltaTime);
-    // pf.draw(ctx);
     ctx.drawImage(background, 0, 0);
+
     for (var i = 0; i < platform.length; i++) {
-        ctx.fillStyle = "#1c1c1c";
-        ctx.fillRect(platform[i].x, platform[i].y, 800, 100);
-        ctx.fillStyle = "#525252";
-        ctx.fillRect(platform[i].x + 800, platform[i].y, 800, 100);
-        function moveLeft() {
-            platform[0].x -= 5;
-        }
-        function moveRight() {
-            platform[0].x += 5;
-        }
+        pf.update(deltaTime);
+        pf.draw(ctx);
 
         if (platform[i].x === -800) {
             platform.push({
                 x: 800,
-                y: 500,});
+                y: 500,
+            });
         }
     }
 
-    requestAnimationFrame(gameLoop);
-
+    sprite.display(player, ctx);
+    sprite.display(deltaTime);
     document.addEventListener("keydown", (event) => {
-        if (event.code === "ArrowRight") {
-            moveLeft();
-        } else if (event.code === "ArrowLeft") {
-            moveRight();
+        if (event.code === "ArrowUp" || event.code === "Space") {
+            sprite.jump();
         }
     });
+
+    requestAnimationFrame(gameLoop);
+
+    // document.addEventListener("keydown", (event) => {
+    //     if (event.code === "ArrowRight") {
+    //         moveLeft();
+    //     } else if (event.code === "ArrowLeft") {
+    //         moveRight();
+    //     }
+    // });
 }
 
 requestAnimationFrame(gameLoop);
