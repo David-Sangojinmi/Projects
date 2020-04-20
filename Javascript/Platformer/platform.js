@@ -1,5 +1,7 @@
 export default class Platform {
     constructor(gameWidth, gameHeight) {
+        this.gameWidth = gameWidth;
+        this.gameHeight = gameHeight;
         this.width = 800;
         this.height = 100;
 
@@ -10,7 +12,7 @@ export default class Platform {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "#f7f7f7";
+        ctx.fillStyle = "#151321";
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
