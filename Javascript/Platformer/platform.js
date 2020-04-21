@@ -1,9 +1,13 @@
 export default class Platform {
-    constructor(gameWidth, gameHeight) {
+    constructor(gameWidth, gameHeight, r, g, b) {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
+        this.r = 255;
+        this.g = 255;
+        this.b = 255;
         this.width = 800;
         this.height = 100;
+        this.scrollSpeed = 5;
 
         this.position = {
             x: 0,
@@ -12,8 +16,36 @@ export default class Platform {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "#151321";
+        ctx.fillStyle = "rgb(" + this.r + "," + this.g + "," + this.b + ")";
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        ctx.fillStyle = "rgb(84, 38, 193)";
+        ctx.fillRect(this.position.x + 400, this.position.y - 40, 20, 40);
+    }
+
+    scrollLeft(ctx) {
+        this.r++;
+        this.g--;
+        this.b++;
+        // ctx.clearRect(
+        //     this.position.x,
+        //     this.position.y,
+        //     this.width,
+        //     this.height
+        // );
+        //this.position.x += this.scrollSpeed;
+    }
+
+    scrollRight(ctx) {
+        this.r--;
+        this.g++;
+        this.b--;
+        // ctx.clearRect(
+        //     this.position.x,
+        //     this.position.y,
+        //     this.width,
+        //     this.height
+        // );
+        //this.position.x -= this.scrollSpeed;
     }
 
     update(deltaTime) {
