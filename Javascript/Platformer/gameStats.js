@@ -3,7 +3,7 @@ export default class gameStats {
         // Variables
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.hp = 140;
+        this.hp = 142;
         this.points = 0;
 
         // Loading images
@@ -18,17 +18,17 @@ export default class gameStats {
     display(ctx) {
         // Health bar
         ctx.fillStyle = "#29de00";
-        ctx.fillRect(628, 25, this.hp, 19);
+        ctx.fillRect(628, 21, this.hp, 27);
         ctx.drawImage(this.healthBar, 600, 17);
         if (this.hp <= 0) {
             this.hp = 0;
         }
 
         // Points
-        ctx.drawImage(this.coin, 600, 61);
+        ctx.drawImage(this.coin, 601, 61);
         ctx.font = "30px candara";
         ctx.fillStyle = "white";
-        ctx.fillText("x " + this.points, 640, 85);
+        ctx.fillText("x " + this.points, 640, 86);
 
         // Game pause button
         ctx.drawImage(this.pause, 17, 17);
