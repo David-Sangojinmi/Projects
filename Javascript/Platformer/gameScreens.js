@@ -10,7 +10,7 @@ export default class gameScreens {
         // Title
         ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
         ctx.fillRect(0, 0, 800, 600);
-        ctx.drawImage(this.gameTitle, 125, 225);
+        ctx.drawImage(this.gameTitle, 136, 222);
     }
 
     instructions(ctx) {
