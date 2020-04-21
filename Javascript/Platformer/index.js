@@ -13,70 +13,138 @@ import Platform from "./platform.js";
 import Sprite from "./sprite.js";
 import gameScreens from "./gameScreens.js";
 import gameStats from "./gameStats.js";
-let pf = new Platform(GAME_WIDTH, GAME_HEIGHT);
 let sprite = new Sprite(GAME_WIDTH, GAME_HEIGHT);
 let gScreens = new gameScreens(GAME_WIDTH, GAME_HEIGHT);
 let gStats = new gameStats(GAME_WIDTH, GAME_HEIGHT);
 
 // Load all the images
 var background = new Image();
-//              var player = new Image();
-background.src = "images/bg6-2.jpg";
-//              player.src = "images/sprite.jpg";
+//     var player = new Image();
+background.src = "images/bg6-3.jpg";
+//     player.src = "images/sprite.jpg";
 
 // Load audio
-// var jumpS = new Audio();
-// jumpS.src = "sounds/jump.mp3";
+//     var jumpS = new Audio();
+//     jumpS.src = "sounds/jump.mp3";
 
 // Important variables
 var GAME_WIDTH = 800;
 var GAME_HEIGHT = 600;
+var gamestart = true;
+var gameplay = false;
+var gameend = false;
 var lastTime = 0;
 var platform = [];
-platform[0] = {
-    x: 0,
-    y: 500,
-};
+for (var i = 0; i < 2; i++) {
+    platform[i] = new Platform(
+        GAME_WIDTH,
+        GAME_HEIGHT,
+        255, 255, 255
+    );
+    platform[i].position.x = 0 + 800 * i;
+    platform[i].position.y = 500 + 10 * i;
+}
 
-// Draw the environment
-function gameLoop(timestamp) {
+function coinCollision() {
+    if (sprite.position.x === 650) {
+        gStats.points += 1;
+        //Coin.hide();
+    } else if (sprite.position.x === 350) {
+        gStats.points -= 1;
+        //Coin.hide();
+    } else {
+        gStats.points += 0;
+    }
+}
+
+  ///////////////////////////////
+ ////  INITIALISE GAMEPLAY  ////
+///////////////////////////////
+function gameStart(timestamp) {
     let deltaTime = timestamp - lastTime;
     lastTime = timestamp;
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     ctx.drawImage(background, 0, 0);
-    gStats.display(ctx);
+    gScreens.update(deltaTime);
+    gScreens.startScreen(ctx);
+
+    
+
+    window.requestAnimationFrame(gameStart);
+}
+
+document.addEventListener("click", (ev) => {
+    // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    if (ev.clientX >= 200 && ev.clientX <= 600 && ev.clientY >= 500 && ev.clientY <= 600) {
+        gamestart = false;
+        // gameplay = true;
+        gameLoop();
+    }
+});
+
+function gamePlay(timestamp) {
+    let deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+
+    ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    ctx.drawImage(background, 0, 0);
     gStats.update(deltaTime);
+    gStats.display(ctx);
 
     for (var i = 0; i < platform.length; i++) {
-        pf.update(deltaTime);
-        pf.draw(ctx);
+        platform[i].update(deltaTime);
+        platform[i].draw(ctx);
 
-        if (platform[i].x === -800) {
-            platform.push({
-                x: 800,
-                y: 500,
-            });
+        if (platform[i].position.x === -800) {
+            platform[i].position.x = 800;
         }
     }
 
-    sprite.display(ctx, deltaTime);
     sprite.update(deltaTime);
-    
-    document.addEventListener("keydown", (event) => {
-        if (event.code === "ArrowLeft" || event.code === "KeyA") {
-            sprite.moveLeft(ctx, deltaTime);
-        }
-        if (event.code === "ArrowRight" || event.code === "KeyD") {
-            sprite.moveRight(ctx, deltaTime);
-        }
-        if (event.code === "ArrowUp" || event.code === "Space") {
-            // sprite.jump(ctx, deltaTime);
-            gStats.points += 1;
-        }
-    });
+    sprite.display(ctx, deltaTime);
 
-    requestAnimationFrame(gameLoop);
+    coinCollision();
+
+    window.requestAnimationFrame(gamePlay);
 }
 
-requestAnimationFrame(gameLoop);
+function gameEnd() {
+    //////
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.code === "ArrowLeft" || event.code === "KeyA") {
+        for (var i = 0; i < platform.length; i++) {
+            platform[i].position.x += 5;
+        }
+        sprite.moveLeft();
+    }
+    if (event.code === "ArrowRight" || event.code === "KeyD") {
+        for (var i = 0; i < platform.length; i++) {
+            platform[i].position.x -= 5;
+        }
+        sprite.moveRight();
+    }
+    if (event.code === "ArrowUp" || event.code === "KeyW") {
+        sprite.jump(ctx);
+    }
+});
+
+gameLoop();
+
+function gameLoop() {
+    if (gamestart == true) {
+        gameStart();
+    }
+    if (gameplay == true) {
+        gamePlay();
+    }
+    if (gameend == true) {
+        gameEnd();
+    }
+}
+
+
+// gamePlay();
+// requestAnimationFrame(gamePlay);
