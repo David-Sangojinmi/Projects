@@ -32,15 +32,12 @@ background.src = "images/bg6-3.jpg";
 // Important variables
 var gamestart = true;
 var gameplay = false;
+var gamepaused = false;
 var gameend = false;
 var lastTime = 0;
 var platform = [];
-for (var i = 0; i < 2; i++) {
-    platform[i] = new Platform(
-        GAME_WIDTH,
-        GAME_HEIGHT,
-        255, 255, 255
-    );
+for (var i = 0; i < 6; i++) {
+    platform[i] = new Platform(GAME_WIDTH, GAME_HEIGHT, 8, 67, 168);
     platform[i].position.x = 0 + 800 * i;
     platform[i].position.y = 500 + 10 * i;
 }
@@ -57,8 +54,8 @@ function coinCollision() {
     }
 }
 
-  ///////////////////////////////
- ////  GAMEPLAY FUNCTIONS   ////
+///////////////////////////////
+////  GAMEPLAY FUNCTIONS   ////
 ///////////////////////////////
 function gameStart(timestamp) {
     let deltaTime = timestamp - lastTime;
@@ -69,14 +66,17 @@ function gameStart(timestamp) {
     gScreens.update(deltaTime);
     gScreens.startScreen(ctx);
 
-    
-
     window.requestAnimationFrame(gameStart);
 }
 
 document.addEventListener("click", (ev) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    if (ev.clientX >= 200 && ev.clientX <= 600 && ev.clientY >= 500 && ev.clientY <= 600) {
+    if (
+        ev.clientX >= 336 &&
+        ev.clientX <= 336 + gScreens.play.width &&
+        ev.clientY >= 452 &&
+        ev.clientY <= 452 + gScreens.play.height
+    ) {
         gamestart = false;
         gameplay = true;
         gameLoop();
@@ -113,6 +113,12 @@ function gameEnd() {
     //////
 }
 
+function gamePaused() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    // Draw resume button
+}
+
 document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowLeft" || event.code === "KeyA") {
         for (var i = 0; i < platform.length; i++) {
@@ -131,8 +137,21 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-  ///////////////////////////////
- ////     GAMEPLAY INIT     ////
+document.addEventListener("click", (evnt) => {
+    // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    if (
+        evnt.clientX >= 17 &&
+        evnt.clientX <= 17 + gStats.pause.width &&
+        evnt.clientY >= 17 &&
+        evnt.clientY <= 17 + gStats.pause.height
+    ) {
+        gamepaused = true;
+        gamePaused();
+    }
+});
+
+///////////////////////////////
+////     GAMEPLAY INIT     ////
 ///////////////////////////////
 function gameLoop() {
     if (gamestart == true) {
