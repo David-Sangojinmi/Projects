@@ -72,7 +72,7 @@ function gameLoop(timestamp) {
         }
         if (event.code === "ArrowUp" || event.code === "Space") {
             // sprite.jump(ctx, deltaTime);
-            gStats.hp -= 1 / deltaTime;
+            gStats.points += 1;
         }
     });
 
