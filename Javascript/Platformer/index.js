@@ -7,6 +7,8 @@ To-Do:
 
 var cvs = document.getElementById("gameScreen");
 var ctx = cvs.getContext("2d");
+var GAME_WIDTH = 800;
+var GAME_HEIGHT = 600;
 
 // Importing the classes needed
 import Platform from "./platform.js";
@@ -28,8 +30,6 @@ background.src = "images/bg6-3.jpg";
 //     jumpS.src = "sounds/jump.mp3";
 
 // Important variables
-var GAME_WIDTH = 800;
-var GAME_HEIGHT = 600;
 var gamestart = true;
 var gameplay = false;
 var gameend = false;
@@ -58,7 +58,7 @@ function coinCollision() {
 }
 
   ///////////////////////////////
- ////  INITIALISE GAMEPLAY  ////
+ ////  GAMEPLAY FUNCTIONS   ////
 ///////////////////////////////
 function gameStart(timestamp) {
     let deltaTime = timestamp - lastTime;
@@ -78,7 +78,7 @@ document.addEventListener("click", (ev) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     if (ev.clientX >= 200 && ev.clientX <= 600 && ev.clientY >= 500 && ev.clientY <= 600) {
         gamestart = false;
-        // gameplay = true;
+        gameplay = true;
         gameLoop();
     }
 });
@@ -131,8 +131,9 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-gameLoop();
-
+  ///////////////////////////////
+ ////     GAMEPLAY INIT     ////
+///////////////////////////////
 function gameLoop() {
     if (gamestart == true) {
         gameStart();
@@ -145,6 +146,4 @@ function gameLoop() {
     }
 }
 
-
-// gamePlay();
-// requestAnimationFrame(gamePlay);
+gameLoop();
