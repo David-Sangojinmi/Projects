@@ -2,13 +2,12 @@ export default class Sprite {
     constructor(gameWidth, gameHeight) {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.dX = 1;
+        this.dX = 5;
         this.dY = 70;
         this.gravity = 3;
-        // this.health = 50;    >> Already defined in gameScreen
 
         this.position = {
-            x: 100,
+            x: 250,
             y: 300,
         };
     }
