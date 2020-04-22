@@ -5,8 +5,6 @@ export default class gameStats {
         this.gameHeight = gameHeight;
         this.hp = 142;
         this.points = 0;
-        this.coinX = 600;
-        this.coinY = 460;
 
         // Loading images
         this.healthBar = new Image();
@@ -34,10 +32,6 @@ export default class gameStats {
 
         // Game pause button
         ctx.drawImage(this.pause, 17, 17);
-    }
-
-    displayCoins(ctx) {
-        ctx.drawImage(this.coin, this.coinX, this.coinY);
     }
 
     update(deltaTime) {
