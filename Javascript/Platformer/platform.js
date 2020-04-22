@@ -13,32 +13,24 @@ export default class Platform {
             height: 50
         };
         this.testPlatform = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2],
         ];
 
-        this.position = {
+        this.basePosition = {
             x: 0,
-            y: 500
+            y: 0
         };
-    }
-
-    draw(ctx) {
-        // ctx.fillStyle = "rgb("+this.r+","+this.g+","+this.b+")";
-        ctx.fillStyle = "rgb(8, 67, 100)";
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-        ctx.fillStyle = "rgb(84, 38, 193)";
-        ctx.fillRect(this.position.x + 400, this.position.y - 40, 20, 40);
     }
 
     drawTerrain(ctx) {
@@ -46,11 +38,20 @@ export default class Platform {
 
             for (var j = 0; j < this.testPlatform[i].length; j++) {
                 switch (this.testPlatform[i][j]) {
+                    case 3: // Clouds
+                        ctx.fillStyle = "rgba(68, 246, 252, 0.5)";
+                        ctx.fillRect(
+                            this.basePosition.x + this.tpBlock.width * j,
+                            this.basePosition.y + this.tpBlock.height * i,
+                            this.tpBlock.width,
+                            this.tpBlock.height
+                        );
+                        break;
                     case 2: // Terrain
                         ctx.fillStyle = "#5c2b00";
                         ctx.fillRect(
-                            0 + this.tpBlock.width * j,
-                            0 + this.tpBlock.height * i,
+                            this.basePosition.x + this.tpBlock.width * j,
+                            this.basePosition.y + this.tpBlock.height * i,
                             this.tpBlock.width,
                             this.tpBlock.height
                         );
@@ -58,17 +59,17 @@ export default class Platform {
                     case 1: // Grass
                         ctx.fillStyle = "#005c06";
                         ctx.fillRect(
-                            0 + this.tpBlock.width * j,
-                            0 + this.tpBlock.height * i,
+                            this.basePosition.x + this.tpBlock.width * j,
+                            this.basePosition.y + this.tpBlock.height * i,
                             this.tpBlock.width,
                             this.tpBlock.height
                         );
                         break;
                     case 0: // Air/Invisible
-                        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+                        ctx.fillStyle = "rgba(0, 0, 0, 0)";
                         ctx.fillRect(
-                            0 + this.tpBlock.width * j,
-                            0 + this.tpBlock.height * i,
+                            this.basePosition.x + this.tpBlock.width * j,
+                            this.basePosition.y + this.tpBlock.height * i,
                             this.tpBlock.width,
                             this.tpBlock.height
                         );
@@ -79,11 +80,11 @@ export default class Platform {
     }
 
     scrollLeft(ctx) {
-        this.position.x += this.scrollSpeed;
+        this.basePosition.x += this.scrollSpeed;
     }
 
     scrollRight(ctx) {
-        this.position.x -= this.scrollSpeed;
+        this.basePosition.x -= this.scrollSpeed;
     }
 
     update(deltaTime) {
