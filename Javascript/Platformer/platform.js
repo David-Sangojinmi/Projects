@@ -41,12 +41,10 @@ export default class Platform {
         ctx.fillRect(this.position.x + 400, this.position.y - 40, 20, 40);
     }
 
-    drawTP(ctx) {
+    drawTerrain(ctx) {
         for (var i = 0; i < this.testPlatform.length; i++) {
-            //var innertestPlatform = this.testPlatform[i];
+
             for (var j = 0; j < this.testPlatform[i].length; j++) {
-                // ctx.fillStyle = "rgb("+255+","+(0 + 17*j)+","+(0 + 51*i)+")";
-                // ctx.fillRect(0 + 50*j, 0 + 120*i, 50, 120);
                 switch (this.testPlatform[i][j]) {
                     case 2: // Terrain
                         ctx.fillStyle = "#5c2b00";
@@ -67,7 +65,7 @@ export default class Platform {
                         );
                         break;
                     case 0: // Air/Invisible
-                        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+                        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
                         ctx.fillRect(
                             0 + this.tpBlock.width * j,
                             0 + this.tpBlock.height * i,
