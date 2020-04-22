@@ -34,10 +34,10 @@ export default class gameStats {
 
         // Game pause button
         ctx.drawImage(this.pause, 17, 17);
+    }
 
-        // Coins
+    displayCoins(ctx) {
         ctx.drawImage(this.coin, this.coinX, this.coinY);
-
     }
 
     update(deltaTime) {

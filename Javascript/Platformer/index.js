@@ -80,7 +80,9 @@ document.addEventListener("click", (ev) => {
 function coinCollision() {
     if (
         sprite.position.x >= gStats.coinX &&
-        sprite.position.x <= gStats.coin + 50
+        sprite.position.x + sprite.width <= gStats.coinX + gStats.coin.width &&
+        gStats.coinY > sprite.position.y &&
+        gStats.coinY + gStats.coin.height <= sprite.position.y + sprite.height
     ) {
         gStats.points += 1;
         //Coin.hide();
@@ -98,15 +100,7 @@ function gamePlay(timestamp) {
     platform.drawTerrain(ctx);
     gStats.update(deltaTime);
     gStats.display(ctx);
-
-    // for (var i = 0; i < platform.length; i++) {
-    //     platform[i].update(deltaTime);
-    //     platform[i].draw(ctx);
-
-    //     if (platform[i].position.x === -800) {
-    //         platform[i].position.x = 800;
-    //     }
-    // }
+    gStats.displayCoins(ctx);
 
     sprite.update(deltaTime);
     sprite.display(ctx, deltaTime);
@@ -117,10 +111,12 @@ function gamePlay(timestamp) {
 }
 
 function gamePaused() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
     ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     // Draw resume button
-
+    ctx.fillStyle = "rgb(0, 200, 0)";
+    ctx.fillRect(300, 150, 200, 100);
+    ctx.fillRect(300, 350, 200, 100);
 }
 
 document.addEventListener("keydown", (event) => {

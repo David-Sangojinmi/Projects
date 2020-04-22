@@ -6,6 +6,8 @@ export default class Sprite {
         this.dY = 70;
         this.gravity = 3;
 
+        this.width = 20;
+        this.height = 50;
         this.position = {
             x: 250,
             y: 300,
@@ -26,7 +28,7 @@ export default class Sprite {
 
     display(ctx) {
         ctx.fillStyle = "purple";
-        ctx.fillRect(this.position.x, this.position.y, 20, 50);
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         // ctx.drawImage(img, this.position.x, this.position.y);
         this.position.y += this.gravity;
         if (this.position.y >= 450) {
