@@ -18,6 +18,7 @@ import Platform from "./platform.js";
 import Sprite from "./sprite.js";
 import gameScreens from "./gameScreens.js";
 import gameStats from "./gameStats.js";
+import Coin from "./coins.js";
 
 // Load all the images
 var background = new Image();
@@ -34,6 +35,7 @@ let platform = new Platform(GAME_WIDTH, GAME_HEIGHT);
 let sprite = new Sprite(GAME_WIDTH, GAME_HEIGHT);
 let gScreens = new gameScreens(GAME_WIDTH, GAME_HEIGHT);
 let gStats = new gameStats(GAME_WIDTH, GAME_HEIGHT);
+let coinS = new Coin();
 var gamestart = true;
 var gameplay = false;
 var gamepaused = false;
@@ -79,10 +81,10 @@ document.addEventListener("click", (ev) => {
 
 function coinCollision() {
     if (
-        sprite.position.x >= gStats.coinX &&
-        sprite.position.x + sprite.width <= gStats.coinX + gStats.coin.width &&
-        gStats.coinY > sprite.position.y &&
-        gStats.coinY + gStats.coin.height <= sprite.position.y + sprite.height
+        sprite.position.x >= coinS.coinX &&
+        sprite.position.x + sprite.width <= coinS.coinX + coinS.coin.width &&
+        coinS.coinY > sprite.position.y &&
+        coinS.coinY + coinS.coin.height <= sprite.position.y + sprite.height
     ) {
         gStats.points += 1;
         //Coin.hide();
@@ -100,7 +102,7 @@ function gamePlay(timestamp) {
     platform.drawTerrain(ctx);
     gStats.update(deltaTime);
     gStats.display(ctx);
-    gStats.displayCoins(ctx);
+    coinS.displayCoins(ctx);
 
     sprite.update(deltaTime);
     sprite.display(ctx, deltaTime);
@@ -124,6 +126,7 @@ document.addEventListener("keydown", (event) => {
         if (event.code === "ArrowLeft" || event.code === "KeyA") {
             if (sprite.position.x <= 100) {
                 platform.scrollLeft();
+                coinS.scrollLeft();
             } else {
                 sprite.moveLeft();
             }
@@ -132,6 +135,7 @@ document.addEventListener("keydown", (event) => {
         if (event.code === "ArrowRight" || event.code === "KeyD") {
             if (sprite.position.x + 20 >= 700) {
                 platform.scrollRight();
+                coinS.scrollRight();
             } else {
                 sprite.moveRight();
             }
