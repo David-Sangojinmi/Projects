@@ -31,7 +31,7 @@ export default class Sprite {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         // ctx.drawImage(img, this.position.x, this.position.y);
         this.position.y += this.gravity;
-        if (this.position.y >= 450) {
+        if (this.position.y >= this.gameHeight - 80) {
             this.position.y = 450;
         }
     }
