@@ -39,24 +39,21 @@ var platform = [];
 for (var i = 0; i < 6; i++) {
     platform[i] = new Platform(GAME_WIDTH, GAME_HEIGHT, 8, 67, 168);
     platform[i].position.x = 0 + 800 * i;
-    platform[i].position.y = 500 + 10 * i;
+    platform[i].position.y = 500;
 }
 
+///////////////////////////////
+////  GAMEPLAY FUNCTIONS   ////
+///////////////////////////////
 function coinCollision() {
-    if (sprite.position.x === 650) {
+    if (sprite.position.x >= gStats.coinX && sprite.position.x <= gStats.coin + 50) {
         gStats.points += 1;
-        //Coin.hide();
-    } else if (sprite.position.x === 350) {
-        gStats.points -= 1;
         //Coin.hide();
     } else {
         gStats.points += 0;
     }
 }
 
-///////////////////////////////
-////  GAMEPLAY FUNCTIONS   ////
-///////////////////////////////
 function gameStart(timestamp) {
     let deltaTime = timestamp - lastTime;
     lastTime = timestamp;
@@ -125,12 +122,14 @@ document.addEventListener("keydown", (event) => {
             platform[i].position.x += 5;
         }
         sprite.moveLeft();
+        gStats.coinX += 5;
     }
     if (event.code === "ArrowRight" || event.code === "KeyD") {
         for (var i = 0; i < platform.length; i++) {
             platform[i].position.x -= 5;
         }
         sprite.moveRight();
+        gStats.coinX -= 5;
     }
     if (event.code === "ArrowUp" || event.code === "KeyW") {
         sprite.jump(ctx);
