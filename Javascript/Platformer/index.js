@@ -11,6 +11,7 @@ var cvs = document.getElementById("gameScreen");
 var ctx = cvs.getContext("2d");
 var GAME_WIDTH = 800;
 var GAME_HEIGHT = 600;
+var winRect = cvs.getBoundingClientRect();
 
 // Importing the classes needed
 import Platform from "./platform.js";
@@ -40,12 +41,6 @@ var gameplay = false;
 var gamepaused = false;
 var gameend = false;
 var lastTime = 0;
-// var platform = [];
-// for (var i = 0; i < 6; i++) {
-//     platform[i] = new Platform(GAME_WIDTH, GAME_HEIGHT, 8, 67, 168);
-//     platform[i].position.x = 0 + 800 * i;
-//     platform[i].position.y = 500;
-// }
 
 ///////////////////////////////
 ////  GAMEPLAY FUNCTIONS   ////
@@ -66,10 +61,10 @@ document.addEventListener("click", (ev) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     if (gamestart === true) {
         if (
-            ev.clientX >= 336 &&
-            ev.clientX <= 336 + gScreens.play.width &&
-            ev.clientY >= 452 &&
-            ev.clientY <= 452 + gScreens.play.height
+            ev.clientX >= 336 + winRect.left + 2 &&
+            ev.clientX <= 336 + gScreens.play.width + winRect.left + 2 &&
+            ev.clientY >= 452 + winRect.top + 2 &&
+            ev.clientY <= 452 + gScreens.play.height + winRect.top + 2
         ) {
             gamestart = false;
             gameplay = true;
@@ -126,10 +121,10 @@ document.addEventListener("click", (evnt) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     if (gameplay === true) {
         if (
-            evnt.clientX >= 17 &&
-            evnt.clientX <= 17 + gStats.pause.width &&
-            evnt.clientY >= 17 &&
-            evnt.clientY <= 17 + gStats.pause.height
+            evnt.clientX >= 17 + winRect.left + 2 &&
+            evnt.clientX <= 17 + 34 + winRect.left + 2 &&
+            evnt.clientY >= 17 + winRect.top + 2 &&
+            evnt.clientY <= 17 + 35 + winRect.top + 2
         ) {
             gamepaused = true;
             gameLoop();
@@ -141,10 +136,10 @@ document.addEventListener("click", (pauseevnt) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     if (gamepaused === true) {
         if (
-            pauseevnt.clientX >= 300 &&
-            pauseevnt.clientX <= 500 &&
-            pauseevnt.clientY >= 150 &&
-            pauseevnt.clientY <= 250
+            pauseevnt.clientX >= 300 + winRect.left + 2 &&
+            pauseevnt.clientX <= 500 + winRect.left + 2 &&
+            pauseevnt.clientY >= 150 + winRect.top + 2 &&
+            pauseevnt.clientY <= 250 + winRect.top + 2
         ) {
             gamepaused = false;
             gameplay = true;
