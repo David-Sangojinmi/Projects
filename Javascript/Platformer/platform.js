@@ -16,7 +16,8 @@ export default class Platform {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "rgb(" + this.r + "," + this.g + "," + this.b + ")";
+        // ctx.fillStyle = "rgb("+this.r+","+this.g+","+this.b+")";
+        ctx.fillStyle = "rgb(8, 67, 100)";
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         ctx.fillStyle = "rgb(84, 38, 193)";
         ctx.fillRect(this.position.x + 400, this.position.y - 40, 20, 40);
