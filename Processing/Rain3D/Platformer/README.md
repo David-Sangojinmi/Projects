@@ -1,3 +1,0 @@
-# 3D Rain Visualisation
-## Platformer version
-<img src="https://github.com/David-Sangojinmi/Projects/blob/master/Processing/Images/rain3d_platformer_1.png" width="400" height="300"/>  <img src="https://github.com/David-Sangojinmi/Projects/blob/master/Processing/Images/rain3d_platformer_2.png" width="400" height="300"/>  <img src="https://github.com/David-Sangojinmi/Projects/blob/master/Processing/Images/rain3d_platformer_3.png" width="400" height="300"/>  <img src="https://github.com/David-Sangojinmi/Projects/blob/master/Processing/Images/rain3d_platformer_4.png" width="400" height="300"/>

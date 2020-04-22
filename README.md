@@ -1,2 +1,0 @@
-# Coding projects
-This is where I will collate all programming projects I complete. The projects will be stored in folders according to which language I used to make them and main topics. For example, the Javascript folder will contain all the projects that I made using javascript. Feel free to give feedback on my portfolio and use or remix the code!
