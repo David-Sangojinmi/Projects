@@ -63,15 +63,17 @@ function gameStart(timestamp) {
 
 document.addEventListener("click", (ev) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    if (
-        ev.clientX >= 336 &&
-        ev.clientX <= 336 + gScreens.play.width &&
-        ev.clientY >= 452 &&
-        ev.clientY <= 452 + gScreens.play.height
-    ) {
-        gamestart = false;
-        gameplay = true;
-        gameLoop();
+    if (gamestart === true) {
+        if (
+            ev.clientX >= 336 &&
+            ev.clientX <= 336 + gScreens.play.width &&
+            ev.clientY >= 452 &&
+            ev.clientY <= 452 + gScreens.play.height
+        ) {
+            gamestart = false;
+            gameplay = true;
+            gameLoop();
+        }
     }
 });
 
@@ -122,35 +124,41 @@ function gamePaused() {
 }
 
 document.addEventListener("keydown", (event) => {
-    if (event.code === "ArrowLeft" || event.code === "KeyA") {
-        for (var i = 0; i < platform.length; i++) {
-            platform[i].position.x += 5;
+    if (gameplay === true) {
+        if (event.code === "ArrowLeft" || event.code === "KeyA") {
+            if (sprite.position.x <= 100) {
+                platform.scrollLeft();
+            } else {
+                sprite.moveLeft();
+            }
+            // gStats.coinX += 5;
         }
-        sprite.moveLeft();
-        gStats.coinX += 5;
-    }
-    if (event.code === "ArrowRight" || event.code === "KeyD") {
-        for (var i = 0; i < platform.length; i++) {
-            platform[i].position.x -= 5;
+        if (event.code === "ArrowRight" || event.code === "KeyD") {
+            if (sprite.position.x + 20 >= 700) {
+                platform.scrollRight();
+            } else {
+                sprite.moveRight();
+            }
+            // gStats.coinX -= 5;
         }
-        sprite.moveRight();
-        gStats.coinX -= 5;
-    }
-    if (event.code === "ArrowUp" || event.code === "KeyW") {
-        sprite.jump(ctx);
+        if (event.code === "ArrowUp" || event.code === "KeyW") {
+            sprite.jump(ctx);
+        }
     }
 });
 
 document.addEventListener("click", (evnt) => {
     // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    if (
-        evnt.clientX >= 17 &&
-        evnt.clientX <= 17 + gStats.pause.width &&
-        evnt.clientY >= 17 &&
-        evnt.clientY <= 17 + gStats.pause.height
-    ) {
-        gamepaused = true;
-        gamePaused();
+    if (gameplay === true) {
+        if (
+            evnt.clientX >= 17 &&
+            evnt.clientX <= 17 + gStats.pause.width &&
+            evnt.clientY >= 17 &&
+            evnt.clientY <= 17 + gStats.pause.height
+        ) {
+            gamepaused = true;
+            gamePaused();
+        }
     }
 });
 
