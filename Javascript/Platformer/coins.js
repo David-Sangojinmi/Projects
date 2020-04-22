@@ -2,8 +2,8 @@ export default class Coin {
     constructor() {
         this.coin = new Image();
         this.coin.src = "images/coin.png";
-        this.coinX = 600;
-        this.coinY = 460;
+        this.baseX = 0;
+        this.baseY = 0;
     }
 
     displayCoins(ctx) {
