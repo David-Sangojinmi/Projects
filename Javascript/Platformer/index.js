@@ -113,16 +113,49 @@ function gamePlay(timestamp) {
 }
 
 function gamePaused() {
-    ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     // Draw resume button
     ctx.fillStyle = "rgb(0, 200, 0)";
     ctx.fillRect(300, 150, 200, 100);
     ctx.fillRect(300, 350, 200, 100);
+
+    window.requestAnimationFrame(gamePaused);
 }
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener("click", (evnt) => {
+    // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     if (gameplay === true) {
+        if (
+            evnt.clientX >= 17 &&
+            evnt.clientX <= 17 + gStats.pause.width &&
+            evnt.clientY >= 17 &&
+            evnt.clientY <= 17 + gStats.pause.height
+        ) {
+            gamepaused = true;
+            gameLoop();
+        }
+    }
+});
+
+document.addEventListener("click", (pauseevnt) => {
+    // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    if (gamepaused === true) {
+        if (
+            pauseevnt.clientX >= 300 &&
+            pauseevnt.clientX <= 500 &&
+            pauseevnt.clientY >= 150 &&
+            pauseevnt.clientY <= 250
+        ) {
+            gamepaused = false;
+            gameplay = true;
+            gameLoop();
+        }
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (gameplay === true && gamepaused === false) {
         if (event.code === "ArrowLeft" || event.code === "KeyA") {
             if (sprite.position.x <= 100) {
                 platform.scrollLeft();
@@ -147,21 +180,6 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-document.addEventListener("click", (evnt) => {
-    // ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    if (gameplay === true) {
-        if (
-            evnt.clientX >= 17 &&
-            evnt.clientX <= 17 + gStats.pause.width &&
-            evnt.clientY >= 17 &&
-            evnt.clientY <= 17 + gStats.pause.height
-        ) {
-            gamepaused = true;
-            gamePaused();
-        }
-    }
-});
-
 function gameEnd() {
     //////
 }
@@ -175,6 +193,9 @@ function gameLoop() {
     }
     if (gameplay == true) {
         gamePlay();
+    }
+    if (gamepaused == true) {
+        gamePaused();
     }
     if (gameend == true) {
         gameEnd();
