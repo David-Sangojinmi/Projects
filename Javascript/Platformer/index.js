@@ -2,7 +2,10 @@
 Author: David Sangojinmi
 Background image: https://craftpix.net/freebies/free-horizontal-2d-game-backgrounds/?utm_source=opengameart&utm_medium=public&utm_campaign=myself
 To-Do:
-    - Get a platform going
+    - Draw a player sprite
+    - Animate the player sprite
+    - Create a game paused screen
+    - Allow the generated terrain to be scrollable
 */
 
 var cvs = document.getElementById("gameScreen");
@@ -31,8 +34,8 @@ let platform = new Platform(GAME_WIDTH, GAME_HEIGHT);
 let sprite = new Sprite(GAME_WIDTH, GAME_HEIGHT);
 let gScreens = new gameScreens(GAME_WIDTH, GAME_HEIGHT);
 let gStats = new gameStats(GAME_WIDTH, GAME_HEIGHT);
-var gamestart = false;
-var gameplay = true;
+var gamestart = true;
+var gameplay = false;
 var gamepaused = false;
 var gameend = false;
 var lastTime = 0;
@@ -89,10 +92,8 @@ function gamePlay(timestamp) {
     lastTime = timestamp;
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    // ctx.drawImage(background, 0, 0);
-    
-    platform.drawTP(ctx);
-
+    ctx.drawImage(background, 0, 0);
+    platform.drawTerrain(ctx);
     gStats.update(deltaTime);
     gStats.display(ctx);
 
@@ -117,6 +118,7 @@ function gamePaused() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     // Draw resume button
+
 }
 
 document.addEventListener("keydown", (event) => {
@@ -171,5 +173,4 @@ function gameLoop() {
     }
 }
 
-// gameLoop();
-gamePlay();
+gameLoop();
