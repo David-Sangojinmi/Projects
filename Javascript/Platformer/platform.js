@@ -10,14 +10,21 @@ export default class Platform {
         this.scrollSpeed = 5;
         this.tpBlock = {
             width: 50,
-            height: 120
+            height: 50
         };
         this.testPlatform = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 0],
         ];
 
         this.position = {
@@ -36,54 +43,39 @@ export default class Platform {
 
     drawTP(ctx) {
         for (var i = 0; i < this.testPlatform.length; i++) {
-            var innertestPlatform = this.testPlatform[i];
-            for (var j = 0; innertestPlatform.length; j++) {
-                if (this.testPlatform[i][j] == 2) {
-                    ctx.fillStyle = "#5c2b00";
-                    ctx.fillRect(
-                        0, //  + this.tpBlock.width * j
-                        0, //  + this.tpBlock.height * i
-                        50,
-                        120
-                    );
+            //var innertestPlatform = this.testPlatform[i];
+            for (var j = 0; j < this.testPlatform[i].length; j++) {
+                // ctx.fillStyle = "rgb("+255+","+(0 + 17*j)+","+(0 + 51*i)+")";
+                // ctx.fillRect(0 + 50*j, 0 + 120*i, 50, 120);
+                switch (this.testPlatform[i][j]) {
+                    case 2: // Terrain
+                        ctx.fillStyle = "#5c2b00";
+                        ctx.fillRect(
+                            0 + this.tpBlock.width * j,
+                            0 + this.tpBlock.height * i,
+                            this.tpBlock.width,
+                            this.tpBlock.height
+                        );
+                        break;
+                    case 1: // Grass
+                        ctx.fillStyle = "#005c06";
+                        ctx.fillRect(
+                            0 + this.tpBlock.width * j,
+                            0 + this.tpBlock.height * i,
+                            this.tpBlock.width,
+                            this.tpBlock.height
+                        );
+                        break;
+                    case 0: // Air/Invisible
+                        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+                        ctx.fillRect(
+                            0 + this.tpBlock.width * j,
+                            0 + this.tpBlock.height * i,
+                            this.tpBlock.width,
+                            this.tpBlock.height
+                        );
+                        break;
                 }
-                if (this.testPlatform[i][j] == 1) {
-                    ctx.fillStyle = "#005c06";
-                    ctx.fillRect(100, 100, 50, 120);
-                }
-                if (this.testPlatform[i][j] == 0) {
-                    ctx.fillStyle = "#ffffff";
-                    ctx.fillRect(100, 200, 50, 120);
-                }
-                // switch (this.testPlatform[i][j]) {
-                //     case 2: // Terrain
-                //         ctx.fillStyle = "#5c2b00";
-                //         ctx.fillRect(
-                //             0 + this.tpBlock.width * j,
-                //             0 + this.tpBlock.height * i,
-                //             this.tpBlock.width,
-                //             this.tpBlock.height
-                //         );
-                //         break;
-                //     case 1: // Grass
-                //         ctx.fillStyle = "#005c06";
-                //         ctx.fillRect(
-                //             0 + this.tpBlock.width * j,
-                //             0 + this.tpBlock.height * i,
-                //             this.tpBlock.width,
-                //             this.tpBlock.height
-                //         );
-                //         break;
-                //     case 0: // Air/Invisible
-                //         ctx.fillStyle = "rgba(0, 0, 0, 0)";
-                //         ctx.fillRect(
-                //             0 + this.tpBlock.width * j,
-                //             0 + this.tpBlock.height * i,
-                //             this.tpBlock.width,
-                //             this.tpBlock.height
-                //         );
-                //         break;
-                // }
             }
         }
     }
