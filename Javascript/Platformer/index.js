@@ -4,8 +4,7 @@ Background image: https://craftpix.net/freebies/free-horizontal-2d-game-backgrou
 To-Do:
     - Draw a player sprite
     - Animate the player sprite
-    - Create a game paused screen
-    - Allow the generated terrain to be scrollable
+    - Maybe player terrain interaction
 */
 
 var cvs = document.getElementById("gameScreen");
